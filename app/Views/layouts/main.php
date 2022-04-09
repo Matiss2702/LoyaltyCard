@@ -16,6 +16,8 @@
     <script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="/js/templatemo.js"></script>
     <script src="/js/custom.js"></script>
+    <script src="/js/modal.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="/css/fontawesome/all.min.css">
     <script src="/js/fontawesome/all.min.js"></script>
@@ -72,20 +74,23 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                  <?php if(empty($this->data['is_login'])):?>
+                       <a class="nav-icon position-relative text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#sign-form">
                           <i class="fa-solid fa-right-to-bracket text-dark mr-3"></i>
                         </a>
-                        <a class="nav-icon position-relative text-decoration-none" href="#">
-                          <i class="fa-solid fa-circle-user text-dark mr-3"></i>
-                        </a>
+                     <?php else:?>
                         <a class="nav-icon position-relative text-decoration-none" href="#">
                             <i class="fa-solid fa-user text-dark mr-3"></i>
                         </a>
+                        <a class="nav-icon position-relative text-decoration-none" href="/logout/">
+                            <i class="fa-solid fa-arrow-right-from-bracket text-dark mr-3"></i>
+                        </a>
+                      <?php endif;?>
                         <a class="nav-icon position-relative text-decoration-none" href="#">
                           <i class="fa-solid fa-cart-shopping text-dark mr-1"></i>
                             <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
                         </a>
+                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
                             <div class="input-group-text">
@@ -96,7 +101,7 @@
                     <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                       <i class="fa-solid fa-magnifying-glass text-dark mr-2"></i>
                     </a>
-                </div>
+                 </div>
             </div>
         </div>
     </nav>
@@ -215,7 +220,7 @@
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">Loyaltycar@gmail.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">Loyaltycard@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -234,6 +239,77 @@
             </div>
         </div>
     </footer>
+    <!-- The Modal -->
+  <div class="modal" id="sign-form">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-tabs modal-tabs-fill">
+                  <button class="modal-tabs-link active" id="sign-in" onclick='sign_in()'>Se Connecter</button>
+                  <button class="modal-tabs-link" id="sign-up" onclick='sign_up()'>S'inscrire</button>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="tab-content" id="tabs">
+             <!-- content tabs login -->
+            <div class="tab-pane fade show active" id="sign-in-tab">
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signin-mail" class="form-label">Adresse Email</label>
+                <input class="form-control" type="email" id="signin-mail" name="signin-mail" placeholder="Votre email">
+              </div>
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signin-password" class="form-label">Mot de Passe</label>
+                <input class="form-control" type="password" id="signin-password" name="signin-password" placeholder="Votre mot de passe">
+              </div>
+              <button class="btn btn-primary d-flex mx-auto" onclick="login('<?php echo csrf_hash() ?>')">Se Connecter</button>
+            </div>
+            <!-- content tabs register -->
+            <div class="tab-pane fade" id="sign-up-tab">
+               <div class="mb-3 d-grid text-center form-group">
+                <label for="signup-lastname" class="form-label">Nom</label>
+                <input class="form-control" type="text" id="signup-lastname" name="signup-lastname" placeholder="Nom">
+              </div>
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signup-firstname" class="form-label">Prénom</label>
+                <input class="form-control" type="text" id="signup-firstname" name="signup-firstname" placeholder="Prénom">
+              </div>
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signup-mail" class="form-label">Adresse Email</label>
+                <input class="form-control" type="email" id="signup-mail" name="signup-mail" placeholder="Votre email">
+              </div>
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signup-password" class="form-label">Mot de Passe</label>
+                <input class="form-control" type="password" id="signup-password" name="signup-password" placeholder="Votre mot de passe">
+              </div>
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="signup-password-confirm" class="form-label">Confirmation Mot de Passe</label>
+                <input class="form-control" type="password" id="signup-password-confirm" name="signup-password-confirm" placeholder="Confirmation mot de passe">
+              </div>
+              <button class="btn btn-primary d-flex mx-auto" onclick="register('<?php echo csrf_hash() ?>')">S'inscrire</button>
+            </div>
+            <!-- content tabs reset password -->
+            <div class="tab-pane fade" id="reset-tab">
+              <div class="mb-3 d-grid text-center form-group">
+                <label for="reset-mail" class="form-label">Adresse Email</label>
+                <input class="form-control" type="email" id="reset-mail" name="reset-mail" placeholder="Votre email">
+              </div>
+              <button class="btn btn-primary d-flex mx-auto" onclick="reset('<?php echo csrf_hash() ?>')">Changer de mot de passe</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button  id="reset" class="btn btn-link" onclick='reset_pwd()'>Mot de passe oublié?</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

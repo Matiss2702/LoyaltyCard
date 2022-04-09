@@ -15,7 +15,7 @@ function login(csrf_token) {
       toastr.options.onHidden = function () {
         window.location.reload();
       };
-      toastr.success(reponse.statusText)
+      toastr.success(reponse.message)
     },
     error: function (reponse) {
       toastr.options.timeOut = 750;

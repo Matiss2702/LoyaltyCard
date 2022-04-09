@@ -11,25 +11,25 @@ class ProductTypeSeeder extends Seeder
         $data = [
             [
                 'name' => 'multimedia',
-                'description'=>'',
+                'description' => '',
             ],
             [
                 'name' => 'electromenager',
-                'description'=>'',
+                'description' => '',
             ],
             [
                 'name' => 'accesoire',
-                'description'=>'',
+                'description' => '',
             ],
             [
                 'name' => 'vettement',
-                'description'=>'',
+                'description' => '',
             ],
             [
                 'name' => 'burautique',
-                'description'=>'',
+                'description' => '',
             ],
         ];
-        $this->db->table('users')->insertBatch($data);
+        $this->db->table('product_types')->insertBatch($data);
     }
 }

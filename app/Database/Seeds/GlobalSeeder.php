@@ -8,5 +8,7 @@ class GlobalSeeder extends Seeder{
     public function run(){
         $this->call('GroupSeeder');
         $this->call('UserSeeder');
+        $this->call('ProductTypeSeeder');
+        $this->call('ProductSeeder');
     }
 }

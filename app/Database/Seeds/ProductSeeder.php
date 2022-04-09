@@ -10,9 +10,9 @@ class ProductSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'barcelet',
+                'name' => 'bracelet',
                 'price' => '10',
-                'image' => 'barcelet.jpg',
+                'image' => 'bracelet.jpg',
                 'reduction' => '0.1',
                 'product_types_id' => 3,
                 'status' => 1
@@ -101,6 +101,6 @@ class ProductSeeder extends Seeder
             
 
         ];
-        $this->db->table('users')->insertBatch($data);
+        $this->db->table('products')->insertBatch($data);
     }
 }

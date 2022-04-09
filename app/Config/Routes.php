@@ -34,7 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'HomeController::index');
 $routes->get('/toto', 'HomeController::toto');
 $routes->post('/login', 'AuthController::login');
-$routes->post('/logout', 'AuthController::logout');
+$routes->get('/logout', 'AuthController::logout');
 $routes->post('/register', 'RegisterController::register');
 $routes->put('/confirm/(:hash)', 'RegisterController::confirm');
 
