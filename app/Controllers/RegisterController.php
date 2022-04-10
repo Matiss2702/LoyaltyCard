@@ -70,7 +70,7 @@ class RegisterController extends BaseController {
           $userInfo = [
               'lastname' => $data['lastname'],
               'firstname' => $data['firstname'],
-              'url' => '/confirm/'.$id.sha1($data['mail'])
+              'url' => 'confirm/'.$id.'a'.sha1($data['mail'])
 
           ];
           $email = \Config\Services::email(); // loading for use
@@ -80,14 +80,15 @@ class RegisterController extends BaseController {
           $template = view('mail/activate-mail', $userInfo);
           $email->setMessage($template);
           // Send email
+          $reponse = [
+            'message' => 'votre compte à bien été crée. Vous allez recevoir un email pour valider votre compte.'
+          ];
           if ($email->send()) {
-            echo 'Email successfully sent, please check.';
+            return $this->respondCreated($reponse);
           } else {
-            //return $this->respond($userInfo, 400, 'le mail n\'a pas été envoyé');
             $data = $email->printDebugger(['headers']);
             print_r($data);
           }
-          return $this->respondCreated($user);
           }else{
             $errors = $validation->getErrors();
             return $this->fail($errors);
@@ -97,17 +98,18 @@ class RegisterController extends BaseController {
     public function confirm($hash) {
       $session = \Config\Services::session();
       $userModel =  new UserModel();
-      $id = substr($hash, 0, 1);
+      $id = substr($hash, 0, strpos($hash, 'a'));
       $user = $userModel->where('id', $id)->first();
       if($user['status'] == 0) {
         $data = [
-          'status' => 1,
+          'status' => '1'
         ];
-        $userModel->update($id,$data);
+        $userModel->update((int)$id,$data);
         $session->setFlashdata('activate', 'Votre compte a bien été activer');
+        return redirect('/');
       } else {
         $session->setFlashdata('activate', 'Votre compte est déjà activer');
+        return redirect('/');
       }
-      redirect('home');
     }
 }

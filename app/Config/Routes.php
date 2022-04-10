@@ -36,7 +36,7 @@ $routes->get('/toto', 'HomeController::toto');
 $routes->post('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
 $routes->post('/register', 'RegisterController::register');
-$routes->put('/confirm/(:hash)', 'RegisterController::confirm');
+$routes->get('/confirm/(:hash)', 'RegisterController::confirm/$1');
 
 
 /*

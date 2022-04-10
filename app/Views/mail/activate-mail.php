@@ -5,9 +5,9 @@
 </head>
 
 <body>
-  <h3>Bonjour <?= $userInfo['firstname'].' '.$userInfo['lastname'] ?> </h3>
+  <h3>Bonjour <?= $firstname.' '.$lastname?> </h3>
   <p>
-    Veuillez cliquer sur ce lien pour activer votre compte <?= 'localhost:8080'.$userInfo['url']?>.
+    Veuillez cliquer sur ce lien pour activer votre compte <a href="<?= 'http://localhost:8080/'.$url?>"><?= 'http://localhost:8080/'.$url?></a>
   </p>
   <p>
     Merci par avance,<br />L'équipe de direction LoyaltyCard
