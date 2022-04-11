@@ -65,7 +65,7 @@ function register(csrf_token) {
 
 function reset(csrf_token) {
 
-  mail = $('#reset-email').val()
+  mail = $('#reset-mail').val()
   let data = { mail: mail, csrf_token_name: csrf_token }
   $.ajax({
     url: "/forgot/",
@@ -76,6 +76,37 @@ function reset(csrf_token) {
       toastr.options.fadeOut = 1000;
       toastr.options.onHidden = function () {
         window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}
+
+function forgot(csrf_token) {
+  id = $('#reset-id').val()
+  password = $('#reset-password').val()
+  pass_confirm = $('#reset-confirm-password').val()
+  let data = { id: id, password: password, pass_confirm: pass_confirm , csrf_token_name: csrf_token }
+  $.ajax({
+    url: "/reset_confirm/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.href='/';
       };
       toastr.success(reponse.message)
     },

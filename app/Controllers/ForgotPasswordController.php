@@ -16,7 +16,7 @@ class ForgotPasswordController extends BaseController {
             'mail' => $this->request->getPost('mail'),
         ];
 
-        $register_rules = [
+        $reset_rules = [
           'mail' => [
             'rules' =>'required|valid_email',
             'errors' => [
@@ -26,7 +26,7 @@ class ForgotPasswordController extends BaseController {
           ],
         ];
 
-        if($this->validate($register_rules)){
+        if($this->validate($reset_rules)){
           $userModel = new UserModel();
           $user = $userModel->where('mail', $data['mail'])->first();
           $userInfo = [
@@ -65,11 +65,47 @@ class ForgotPasswordController extends BaseController {
       $data = [
         'lastname' => $user['lastname'],
         'firstname' => $user['firstname'],
-        'id' => $id
+        'id' => $id,
+        'title' => 'mots de passe oublié'
       ];
       return view('forgot',$data);
     }
+
     public function reset_confirm(){
-        
+         $data = [
+            'id' => $this->request->getPost('id'),
+            'password' => $this->request->getPost('password'),
+            'pass_confirm' => $this->request->getPost('pass_confirm'),
+        ];
+        $forgot_rules = [
+          'password' => [
+            'rules' =>'required|min_length[8]',
+            'errors' =>  [
+              'required' =>'le mot de passe est requis',
+              'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
+            ]
+          ],
+          'pass_confirm' => [
+            'rules' =>'required_with[password]|matches[password]',
+            'errors' => [
+              'required_with' =>'le mot de passe doit etre remplis avant ',
+              'matches' =>'le confirmation doit corespondre au mot de passe',
+            ]
+          ]
+        ];
+        $pwd =[
+          'password'=> sha1($data['password'])
+        ];
+        if($this->validate($forgot_rules)){
+          $userModel = new UserModel();
+          $userModel->update((int)$data['id'],$pwd);
+          $reponse = [
+            'message' => 'Votre mots de passe à bien été modifié.'
+          ];
+           return $this->respond($reponse,200);
+        }else{
+            $errors = $validation->getErrors();
+            return $this->fail($errors);
+        }
     }
 }
