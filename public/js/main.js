@@ -123,3 +123,40 @@ function forgot(csrf_token) {
     }
   })
 }
+function profile(csrf_token) {
+  firstname =$('#firstname').val()
+  lastname = $('#lastname').val()
+  address = $('#address').val()
+  zipcode = $('#zipcode').val()
+  city = $('#city').val()
+  country = $('#country').val()
+  let data = {  lastname: lastname, firstname: firstname,address: address,zipcode: zipcode,city: city, country: country ,csrf_token_name: csrf_token }
+  if($("#check-pwd").is(":checked")){
+    data['password']=$("#pwd").val()
+    data['pass_confirm']=$("#pwd-confirm").val()
+  }
+  $.ajax({
+    url: "/update/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}

@@ -4,34 +4,21 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddUsers extends Migration {
-    public function up() {
+class Create_Table_Company extends Migration
+{ 
+    public function up()
+    {
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'password' => [
+            'company_name' => [
                 'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false,
+                'constraint' => '100',
+                'null' => false
             ],
-            'lastname' => [
-                'type' => 'VARCHAR',
-                'constraint' => '60',
-                'null' => false,
-			],
-             'firstname' => [
-                'type' => 'VARCHAR',
-                'constraint' => '60',
-                'null' => false,
-			],
-             'mail' => [
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => false,
-			],
              'address' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
@@ -52,21 +39,14 @@ class AddUsers extends Migration {
                 'constraint' => '100',
                 'null' => true,
 			],
-            'zipcode' => [
-                'type' => 'INT',
-                'constraint' => '5',
+            'subcription' => [
+                'type' => 'FLOAT',
+                'default' => '29.99',
                 'null' => true,
 			],
-             'groups_id' => [
-                'type' => 'INT',
-                'unsigned' => true,
+            'subcription_date' => [
+                'type' => 'datetime',
                 'null' => true,
-			],
-             'fidelity_points' => [
-                'type' => 'INT',
-                'default' => '0',
-                'unsigned' => true,
-                'null' => false,
 			],
             'status' => [
                 'type' => 'ENUM("0","1")',
@@ -80,11 +60,12 @@ class AddUsers extends Migration {
 			],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('groups_id', 'groups', 'id');
-        $this->forge->createTable('users');
+        $this->forge->createTable('companys');
     }
+    
 
-    public function down() {
-        $this->forge->dropTable('users');
+    public function down()
+    {
+        $this->forge->dropTable('companys');
     }
 }

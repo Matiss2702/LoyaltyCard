@@ -69,7 +69,7 @@
                             <a class="nav-link" href="/product/">Produit</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/toto/">Contact</a>
+                            <a class="nav-link" href="/contact/">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -79,7 +79,7 @@
                           <i class="fa-solid fa-right-to-bracket text-dark mr-3"></i>
                         </a>
                      <?php else:?>
-                        <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <a class="nav-icon position-relative text-decoration-none" href="/profile/">
                             <i class="fa-solid fa-user text-dark mr-3"></i>
                         </a>
                         <a class="nav-icon position-relative text-decoration-none" href="/logout/">
@@ -199,7 +199,7 @@
     </div>
     <!-- End Banner Hero -->
     <?php } ?> 
-    <div class="container py-5">
+    <div class="container pb-20r mb-3r">
         <?= $this->renderSection('content') ?>
     </div>
      <!-- Start Footer -->

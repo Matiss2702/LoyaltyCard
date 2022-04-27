@@ -17,7 +17,7 @@ class UserSeeder extends Seeder {
                 'zipcode' => '77000',
                 'country' => 'pologne',
                 'groups_id' => 1,
-                'status'=> 1
+                'status'=> '1',
             ],
             [
                 'password' => sha1('TOTO56'),
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder {
                 'zipcode' => '77000',
                 'country' => 'pologne',
                 'groups_id' => 2,
-                'status'=> 1
+                'status'=> '1',
             ]
 
         ];

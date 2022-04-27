@@ -40,7 +40,12 @@ $routes->get('/confirm/(:hash)', 'RegisterController::confirm/$1');
 $routes->post('/forgot', 'ForgotPasswordController::forgot');
 $routes->get('/reset/(:hash)', 'ForgotPasswordController::reset/$1');
 $routes->post('/reset_confirm', 'ForgotPasswordController::reset_confirm');
-
+$routes->get('/profile', 'ProfileController::profile');
+$routes->post('/update','ProfileController::update');
+$routes->get('/product', 'ProductController::index');
+$routes->get('/product/(:num)','ProductController::product/$1');
+$routes->resource('api/product', ['controller' => 'Api\ProductController', 'except' => 'new,edit']);
+$routes->presenter('admin/product', ['controller' => 'Admin\ProductController', 'except' => 'new,edit']);
 
 /*
  * --------------------------------------------------------------------

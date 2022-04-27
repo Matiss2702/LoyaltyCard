@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddProduct extends Migration
+class Create_Table_Product extends Migration
 {
     public function up()
     {
@@ -37,6 +37,10 @@ class AddProduct extends Migration
                 'type' => 'FLOAT',
                 'null' => false,
 			],
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'status' => [
                 'type' => 'ENUM("0","1")',
                 'default' => '0',

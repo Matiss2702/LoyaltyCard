@@ -37,3 +37,15 @@
     flex: 1 1 auto;
     text-align: center;
   }
+
+  .pb-20r{
+    padding-bottom: 20rem;
+  }
+
+  .mb-3r{
+    margin-bottom: 3rem;
+  }
+  .btnadd{
+    width: 5rem;
+    right: 0;
+  }
