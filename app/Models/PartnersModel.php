@@ -4,19 +4,22 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductModel extends Model
+class PartnersModel extends Model
 {
-  protected $table = 'products';
+  protected $table = 'partners';
   protected $primaryKey = 'id';
 
   protected $allowedFields = [
-    'name',
-    'price',
-    'image',
-    'reduction',
-    'product_type_id',
+    'lastname',
+    'firstname', 
+    'password',
+    'mail',
+    'groups_id',
+    'company_id',
+    'subcription_id',
+    'subcription_date',
     'status',
     'created_at',
     'modified_at',
-  ];
+];
 }

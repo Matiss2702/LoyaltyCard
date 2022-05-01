@@ -120,12 +120,14 @@ class ProductController extends ResourceController
         ];
         return $this->respondCreated($response);
     }
-
+ 
     /**
      * Add or update a model resource, from "posted" properties
      *
      * @return mixed
      */
+
+    
     public function update($id = null)
     {
         $data = [
