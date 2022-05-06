@@ -16,7 +16,7 @@ class UserSeeder extends Seeder {
                 'city' => 'paris',
                 'zipcode' => '77000',
                 'country' => 'pologne',
-                'groups_id' => 1,
+                'group_id' => 1,
                 'status'=> '1',
             ],
             [
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder {
                 'city' => 'paris',
                 'zipcode' => '77000',
                 'country' => 'pologne',
-                'groups_id' => 2,
+                'group_id' => 2,
                 'status'=> '1',
             ]
 

@@ -15,6 +15,7 @@ function login(csrf_token) {
       toastr.options.onHidden = function () {
         window.location.reload();
       };
+      console.log(reponse)
       toastr.success(reponse.message)
     },
     error: function (reponse) {
@@ -23,7 +24,7 @@ function login(csrf_token) {
       toastr.options.onHidden = function () {
         window.location.reload();
       };
-      toastr.error(reponse.statusText)
+      toastr.error(reponse.responseJSON.messages['error'])
     }
   })
 }
@@ -38,7 +39,7 @@ function register(csrf_token) {
   $.ajax({
     url: "/register/",
     type: 'POST',
-    data: { lastname: lastname, firstname: firstname, mail: mail, password: password, pass_confirm: pass_confirm ,csrf_token_name: csrf_token },  
+    data: { lastname: lastname, firstname: firstname, mail: mail, password: password, pass_confirm: pass_confirm ,csrf_token_name: csrf_token },
     success: function (reponse) {
       toastr.options.timeOut = 750;
       toastr.options.fadeOut = 1000;

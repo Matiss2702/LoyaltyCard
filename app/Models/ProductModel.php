@@ -15,6 +15,7 @@ class ProductModel extends Model
     'image',
     'reduction',
     'product_type_id',
+    'descritpion',
     'status',
     'created_at',
     'modified_at',

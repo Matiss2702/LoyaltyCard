@@ -57,7 +57,7 @@ class Create_Table_Users extends Migration {
                 'constraint' => '5',
                 'null' => true,
 			],
-             'groups_id' => [
+             'group_id' => [
                 'type' => 'INT',
                 'unsigned' => true,
                 'null' => true,
@@ -80,7 +80,7 @@ class Create_Table_Users extends Migration {
 			],
         ]);
         $this->forge->addPrimaryKey('id');
-        $this->forge->addForeignKey('groups_id', 'groups', 'id');
+        $this->forge->addForeignKey('group_id', 'groups', 'id');
         $this->forge->createTable('users');
     }
 

@@ -2,13 +2,14 @@
 namespace App\Models;
 use CodeIgniter\Model;
 
-class StocksModel extends Model{
-    protected $table = 'stocks';
+class OrderProductModel extends Model{
+    protected $table = 'order_products';
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-        'warehouses_id',
+        'orders_id',
         'products_id',
         'quantity',
+        'sub_total',
     ];
 }

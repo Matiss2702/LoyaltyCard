@@ -12,5 +12,8 @@ class ProductTypeModel extends Model
   protected $allowedFields = [
     'name',
     'descritpion',
+    'status',
+    'created_at',
+    'modified_at',
   ];
 }

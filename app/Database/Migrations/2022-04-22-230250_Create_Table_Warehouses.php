@@ -14,6 +14,11 @@ class Create_Table_Warehouses extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
+            'name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => false,
+            ],
             'company_id' => [
                 'type' => 'INT',
                 'unsigned' => true,
@@ -29,7 +34,7 @@ class Create_Table_Warehouses extends Migration
                 'constraint' => '100',
                 'null' => true,
 			],
-             'zipcode' => [
+            'zipcode' => [
                 'type' => 'INT',
                 'constraint' => '5',
                 'null' => true,
@@ -39,14 +44,19 @@ class Create_Table_Warehouses extends Migration
                 'constraint' => '100',
                 'null' => true,
 			],
-            'zipcode' => [
-                'type' => 'INT',
-                'constraint' => '5',
+            'status' => [
+                'type' => 'ENUM("0","1")',
+                'default' => '0',
+                'null' => false,
+            ],
+            'created_at datetime default current_timestamp',
+            'modified_at' => [
+                'type' => 'datetime',
                 'null' => true,
-			],
-            
+            ],
+
         ]);
-        
+
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('company_id', 'companys', 'id');
         $this->forge->createTable('warehouses');

@@ -21,6 +21,16 @@ class Create_Table_Groups extends Migration {
                 'type' => 'TEXT',
                 'null' => true
 			],
+            'status' => [
+                'type' => 'ENUM("0","1")',
+                'default' => '0',
+                'null' => false,
+            ],
+            'created_at datetime default current_timestamp',
+            'modified_at' => [
+                'type' => 'datetime',
+                'null' => true,
+            ],
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('groups');

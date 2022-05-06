@@ -79,6 +79,11 @@
                           <i class="fa-solid fa-right-to-bracket text-dark mr-3"></i>
                         </a>
                      <?php else:?>
+                        <?php if($_SESSION['group']!= "user"):?>
+                        <a class="nav-icon position-relative text-decoration-none" href="/admin/">
+                          <i class="fa-solid fa-user-tie"></i>
+                        </a>
+                         <?php endif;?>
                         <a class="nav-icon position-relative text-decoration-none" href="/profile/">
                             <i class="fa-solid fa-user text-dark mr-3"></i>
                         </a>

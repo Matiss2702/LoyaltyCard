@@ -44,15 +44,6 @@ class Create_Table_Partners extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'subcription_id' => [
-                'type' => 'INT',
-                'unsigned' => true,
-                'null' => true,     
-			],
-            'subcription_date' => [
-                'type' => 'datetime',
-                'null' => true,
-			],
             'status' => [
                 'type' => 'ENUM("0","1")',
                 'default' => '0',
@@ -66,11 +57,10 @@ class Create_Table_Partners extends Migration
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->addForeignKey('group_id', 'groups', 'id',);
-        $this->forge->addForeignKey('subcription_id', 'subcriptions', 'id',);
         $this->forge->addForeignKey('company_id', 'companys', 'id',);
         $this->forge->createTable('partners');
     }
-    
+
 
     public function down()
     {

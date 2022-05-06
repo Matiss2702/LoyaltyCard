@@ -28,7 +28,7 @@ class ProductController extends ResourceController
      */
     public function show($id = null)
     {
-        $data = $this->model->where('id', $id)->first();
+        $data = $this->model->find($id);
         if($data){
             return $this->respond($data);
         }else{
@@ -44,13 +44,15 @@ class ProductController extends ResourceController
     public function create()
     {
         $data = [
-            'name' => $this->request->getPost('name'),
-            'price' => $this->request->getPost('price'),
-            'image' => $this->request->getPost('img'),
-            'reduction' => $this->request->getPost('reduction'),
-            'product_type_id' => $this->request->getPost('type'),
-            'status' => $this->request->getPost('status'),
+            'name' => $this->request->getVar('name'),
+            'price' => $this->request->getVar('price'),
+            'image' => $this->request->getVar('image'),
+            'reduction' => $this->request->getVar('reduction'),
+            'product_types_id' => $this->request->getVar('product_types_id'),
+            'description' => $this->request->getVar('description'),
+            'status' => $this->request->getVar('status'),
         ];
+
         $product_rules = [
             'name' => [
               'rules' =>'required|alpha_numeric_space|min_length[3]|max_length[30]',
@@ -68,17 +70,12 @@ class ProductController extends ResourceController
                 'decimal'=>'il doit contenir que des chiffre',
                ]
               ],
-              'image'=>[
-                'rules'=>'is_image[image]|max_dims[image,600,500]|max_size[image,2048]|uploaded[image]|ext_in[image,png,jpg,gif,jpeg]|required|regex_match[/\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])*([0-9a-zA-Z :\-!@$%^&*()])+(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF)/]',
-                'errors'=>[
-                    'is_image'=>'ce n\'est pas une image',
-                    'required'=>'le pats doit etre donnée',
-                    'max_dims'=>'la taille de l\'image doit etre inferieur a 600*500',
-                    'max_size'=>'la taille de l\'image doit etre inferieur a 2Mo',
-                    'uploaded'=>'le fichier n\'est pas téléchargé',
-                    'regex_match'=>'le nom du fichier doit etre nomée sous le format 2022-01-24_nom_de_fichier.ext',
-                    'ext_in'=>'le format de l\'image doit etre png,jpg,gif,jpeg',
-               ]
+            'image' => [
+                'rules' => 'required|regex_match[/\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_[A-Za-z0-9_@#-]*+(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF)/]',
+                'errors' => [
+                    'required' => 'l\'image est requise',
+                    'regex_match' => 'le nom du fichier doit etre nomée sous le format 2022-01-24_nom_de_fichier.ext',
+                ]
               ],
               'reduction'=>[
                 'rules'=>'decimal|required',
@@ -108,44 +105,96 @@ class ProductController extends ResourceController
         if(!$this->validate($product_rules)){
          return $this->fail($this->validator->getErrors());
         }
-        $imageFile = $this->request->getFile('file');
-        $imageFile->move(WRITEPATH.'public/images');
+
         $this->model->insert($data);
         $response = [
             'status'   => 201,
             'error'    => null,
             'messages' => [
-                'success' => 'produit creer avec success'
+                'success' => 'produit créer avec succès'
             ]
         ];
         return $this->respondCreated($response);
     }
- 
+
     /**
      * Add or update a model resource, from "posted" properties
      *
      * @return mixed
      */
 
-    
+
     public function update($id = null)
     {
         $data = [
-            'name' => $this->request->getPost(''),
-            'price' => $this->request->getPost(''),
-            'image' => $this->request->getPost(''),
-            'reduction' => $this->request->getPost(''),
-            'product_type_id' => $this->request->getPost(''),
-            'status' => $this->request->getPost(''),
+            'name' => $this->request->getVar('name'),
+            'price' => $this->request->getVar('price'),
+            'image' => $this->request->getVar('image'),
+            'reduction' => $this->request->getVar('reduction'),
+            'product_types_id' => $this->request->getVar('product_types_id'),
+            'description' => $this->request->getVar('description'),
+            'status' => $this->request->getVar('status'),
             'modified_at' => Time::now()->toDateTimeString(),
         ];
+        $product_rules = [
+            'name' => [
+                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[30]',
+                'errors' => [
+                    'required' => 'le nom est requis',
+                    'alpha_numeric_space' => 'le nom ne doit pas contenir de caractere spéciaux',
+                    'min_length' => 'le nom doit contenir 3 caractere minimun',
+                    'max_length' => ' le nom doit contenir 30 caractere maximun',
+                ]
+            ],
+            'price' => [
+                'rules' => 'decimal|required',
+                'errors' => [
+                    'required' => 'l\'adresse doit etre',
+                    'decimal' => 'il doit contenir que des chiffre',
+                ]
+            ],
+            'image' => [
+                'rules' => 'required|regex_match[/\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_[A-Za-z0-9_@#-]*+(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF)/]',
+                'errors' => [
+                    'required' => 'l\'image est requise',
+                    'regex_match' => 'le nom du fichier doit etre nomée sous le format 2022-01-24_nom_de_fichier.ext',
+                ]
+            ],
+            'reduction' => [
+                'rules' => 'decimal|required',
+                'errors' => [
+                    'required' => 'la ville doit etre donnée',
+                    'decimal' => 'la reduction doit etre donnée'
+                ]
+            ],
+            'product_types_id' => [
+                'rules' => 'numeric|required',
+                'errors' => [
+                    'required' => 'le code postale doit etre donnée',
+                    'numeric' => 'il doit contenir que des chiffres',
+                ]
+            ],
+            'status' => [
+                'rules' => 'numeric|required|max_length[1]|min_length[0]',
+                'errors' => [
+                    'required' => 'le code postale doit etre donnée',
+                    'max_length' => 'la taille doit etre inferieur a 1',
+                    'min_length' => 'la taille doit etre superieur a 0',
+                    'numeric' => 'il doit contenir que des chiffres',
+                ]
+            ],
+        ];
+
+        if (!$this->validate($product_rules)) {
+            return $this->fail($this->validator->getErrors());
+        }
 
         $this->model->update($id, $data);
         $response = [
             'status'   => 200,
             'error'    => null,
             'messages' => [
-                'success' => 'Employee updated successfully'
+                'success' => 'produit modifier avec succès'
             ]
         ];
         return $this->respond($response);
@@ -158,8 +207,7 @@ class ProductController extends ResourceController
      */
     public function delete($id = null)
     {
-        
-        $data = $this->model->where('id', $id)->delete($id);
+        $data = $this->model->find($id);
         if ($data) {
             $this->model->delete($id);
             $response = [

@@ -28,6 +28,10 @@ class Create_Table_Subcription extends Migration
                 'type' => 'INT',
                 'null' => true,
             ],
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
             'status' => [
                 'type' => 'ENUM("0","1")',
                 'default' => '0',
@@ -42,7 +46,7 @@ class Create_Table_Subcription extends Migration
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('subcriptions');
     }
-    
+
 
     public function down()
     {

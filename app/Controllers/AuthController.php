@@ -4,7 +4,9 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
-
+use App\Models\GroupModel;
+use App\Models\PartnerModel;
+use CodeIgniter\CLI\Console;
 
 class AuthController extends BaseController {
     use ResponseTrait;
@@ -14,8 +16,15 @@ class AuthController extends BaseController {
         $mail = $this->request->getPost('mail');
         $pwd = $this->request->getPost('password');
         $userModel =  new UserModel();
+        $groupModel = new GroupModel();
+        $partnerModel = new PartnerModel();
+
         $user = $userModel->where('mail', $mail)->first();
-        $data = [ 'user' => $user, 'mail' => $mail, 'pwd' => sha1($pwd)];
+
+        if(empty($user)) {
+            $user = $partnerModel->where('mail', $mail)->first();
+        }
+
         if($user){
             if($user['status']==1){
                 if(sha1($pwd)==$user['password']){
@@ -24,20 +33,24 @@ class AuthController extends BaseController {
                         'lastname' => $user['lastname'],
                         'firstname' => $user['firstname'],
                         'mail' => $user['mail'],
-                        'group_id' => $user['groups_id'],
+                        'group' => $groupModel->find($user['group_id'])['name'],
                         'isLoggedIn' => TRUE
                     ];
                     $session->set($ses_data);
-                    $data['message'] = 'connexion reussi!';
-                    return $this->respond($data, 200,'connexion réussi');
+                    $response = [
+                        'status'   => 200,
+                        'error'    => null,
+                        'message' =>  'connexion réussi'
+                    ];
+                    return $this->respond($response);
                 }else{
-                    return $this->respond($data, 400,'mauvais mot de passe');
+                    return $this->fail('mauvais mot de passe');
                 }
             }else{
-                return $this->respond($data, 400,'votre compte n\'est pas activé');
+                return $this->fail('votre compte n\'est pas activé');
             }
         }else{
-                return $this->respond($data, 400,'t\'existe pas mec');
+            return $this->failNotFound('t\'existe pas mec');
         }
     }
 

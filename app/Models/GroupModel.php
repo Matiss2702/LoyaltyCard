@@ -12,5 +12,8 @@ class GroupModel extends Model
   protected $allowedFields = [
     'name',
     'description',
+    'status',
+    'created_at',
+    'modified_at',
   ];
 }

@@ -4,14 +4,12 @@ namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class CompanysSeeder extends Seeder
-{
-    public function run()
-    {
+class StockSeeder extends Seeder {
+    public function run() {
         $data = [
             [
             ]
         ];
-        $this->db->table('companys')->insertBatch($data);
+        $this->db->table('stocks')->insertBatch($data);
     }
 }

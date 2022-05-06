@@ -15,7 +15,7 @@ class UserModel extends Model{
         'city',
         'zipcode',
         'country',
-        'groups_id',
+        'group_id',
         'fidelity_points',
         'status',
         'created_at',
