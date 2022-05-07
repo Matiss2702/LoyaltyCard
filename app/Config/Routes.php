@@ -48,6 +48,8 @@ $routes->get('/product', 'ProductController::index');
 $routes->get('/product/(:num)','ProductController::product/$1');
 //Routes Api
 $routes->group('api', function ($routes) {
+    $routes->post('login', 'Api\LoginController::index');
+    $routes->get('profile','Api\ProfileController::index',['filter'=>'api-auth']);
     $routes->resource('product', ['controller' => 'Api\ProductController', 'except' => 'new,edit,remove']);
     $routes->resource('user', ['controller' => 'Api\UserController', 'except' => 'new,edit,remove']);
     $routes->resource('group', ['controller' => 'Api\GroupController', 'except' => 'new,edit,remove']);
