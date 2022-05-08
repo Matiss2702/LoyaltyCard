@@ -3,8 +3,9 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
+use CodeIgniter\API\ResponseTrait;
 
-class CompanysController extends ResourcePresenter
+class CompanyController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\CompanyModel';
     protected $format    = 'json';

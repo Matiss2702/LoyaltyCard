@@ -3,8 +3,9 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
+use CodeIgniter\API\ResponseTrait;
 
-class OrderProductsController extends ResourcePresenter
+class OrderProductController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\OrderProductModel';
     use ResponseTrait;

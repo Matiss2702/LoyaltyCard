@@ -3,8 +3,8 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
-
-class PartnersController extends ResourcePresenter
+use CodeIgniter\API\ResponseTrait;
+class PartnerController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\PartnerModel';
     use ResponseTrait;
@@ -43,8 +43,8 @@ class PartnersController extends ResourcePresenter
         $data = [
             'title'=> 'partenaire',
             'product' => $this->model->find($id),
-            'group_id' => $productTypeModel->find($this->model->find($id)['group_id']),
-            'company' => $productTypeModel->find($this->model->find($id)['company_id']),
+            'group_id' => $groupModel->find($this->model->find($id)['group_id']),
+            'company' => $companyModel->find($this->model->find($id)['company_id']),
             'is_login' => $session->get('isLoggedIn'),
         ];
 

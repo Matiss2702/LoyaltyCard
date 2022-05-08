@@ -3,8 +3,8 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
-
-class StocksController extends ResourcePresenter
+use CodeIgniter\API\ResponseTrait;
+class StockController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\StockModel';
     use ResponseTrait;

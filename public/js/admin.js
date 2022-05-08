@@ -146,3 +146,1101 @@ function delete_product(id,csrf_token){
         }
     })
 }
+function add_user(csrf_token) {
+  lastname = $('#add-lastname').val()
+  firstname = $('#add-firstname').val()
+  password = $('#add-password').val()
+  mail = $('#add-mail').val()
+  address = $('#add-address').val()
+  city = $('#add-city').val()
+  zipcode = $('#add-zipcode').val()
+  country = $('#add-country').val()
+  group_id = $('#add-group_id').val()
+  fidelity_points = $('#add-fidelity_points').val()
+  let data = { lastname: lastname, firstname: firstname, password:password, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/user/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_user(id,csrf_token) {
+  lastname = $('#modify-lastname').val()
+  firstname = $('#modify-firstname').val()
+  password = $('#modify-password').val()
+  mail = $('#modify-mail').val()
+  address = $('#modify-address').val()
+  city = $('#modify-city').val()
+  zipcode = $('#modify-zipcode').val()
+  country = $('#modify-country').val()
+  group_id = $('#modify-group_id').val()
+  fidelity_points = $('#modify-fidelity_points').val()
+  let data = { lastname: lastname, firstname: firstname, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/user/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_user(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/user/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+    product_name =$('#modify-name').val()
+    price = $('#modify-price').val()
+    product_types_id= $('#modify-product-type').val()
+    image = $('#modify-hidden-img').val()
+    reduction = $('#modify-reduction').val()
+    description = $('#modify-description').val()
+  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/company/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_product(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/company/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+    product_name =$('#modify-name').val()
+    price = $('#modify-price').val()
+    product_types_id= $('#modify-product-type').val()
+    image = $('#modify-hidden-img').val()
+    reduction = $('#modify-reduction').val()
+    description = $('#modify-description').val()
+  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/group/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_product(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/group/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+    product_name =$('#modify-name').val()
+    price = $('#modify-price').val()
+    product_types_id= $('#modify-product-type').val()
+    image = $('#modify-hidden-img').val()
+    reduction = $('#modify-reduction').val()
+    description = $('#modify-description').val()
+  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/order/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_product(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/order/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+    product_name =$('#modify-name').val()
+    price = $('#modify-price').val()
+    product_types_id= $('#modify-product-type').val()
+    image = $('#modify-hidden-img').val()
+    reduction = $('#modify-reduction').val()
+    description = $('#modify-description').val()
+  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/partner/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_product(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/partner/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+    product_name =$('#modify-name').val()
+    price = $('#modify-price').val()
+    product_types_id= $('#modify-product-type').val()
+    image = $('#modify-hidden-img').val()
+    reduction = $('#modify-reduction').val()
+    description = $('#modify-description').val()
+  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+    if($("#modify-check-status").is(":checked")){
+      data['status']= '1'
+    } else{
+        data['status']= '0'
+    }
+    console.log(data)
+    $.ajax({
+      url: "/admin/orderproduct/update/" + $id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+        toastr.success(reponse.message)
+      },
+      error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+          window.location.reload();
+        };
+         for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+         }
+      }
+    })
+}
+
+function delete_product(id,csrf_token){
+    let data = { id: id, csrf_token_name: csrf_token }
+    $.ajax({
+        url: "/admin/orderproduct/delete/"+id,
+        type: "POST",
+        data: data,
+        success: function (reponse) {
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+        toastr.success(reponse.messages.success)
+        },
+        error: function (reponse) {
+        var errors = JSON.parse(reponse.responseText)
+        toastr.options.timeOut = 750;
+        toastr.options.fadeOut = 1000;
+        toastr.options.onHidden = function () {
+            window.location.reload();
+        };
+        console.log(reponse)
+         for (var message in errors.messages){
+             toastr.error(errors.messages[message])
+         }
+        }
+    })
+}
+
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+
+function modify_product(id,csrf_token) {
+  product_name =$('#modify-name').val()
+  price = $('#modify-price').val()
+  product_types_id= $('#modify-product-type').val()
+  image = $('#modify-hidden-img').val()
+  reduction = $('#modify-reduction').val()
+  description = $('#modify-description').val()
+let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  if($("#modify-check-status").is(":checked")){
+    data['status']= '1'
+  } else{
+      data['status']= '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/producttype/update/" + $id,
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}
+
+function delete_product(id,csrf_token){
+  let data = { id: id, csrf_token_name: csrf_token }
+  $.ajax({
+      url: "/admin/producttype/delete/"+id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+      toastr.success(reponse.messages.success)
+      },
+      error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+       for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+       }
+      }
+  })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+function modify_product(id,csrf_token) {
+  product_name =$('#modify-name').val()
+  price = $('#modify-price').val()
+  product_types_id= $('#modify-product-type').val()
+  image = $('#modify-hidden-img').val()
+  reduction = $('#modify-reduction').val()
+  description = $('#modify-description').val()
+let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  if($("#modify-check-status").is(":checked")){
+    data['status']= '1'
+  } else{
+      data['status']= '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/subcription/update/" + $id,
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}
+
+function delete_product(id,csrf_token){
+  let data = { id: id, csrf_token_name: csrf_token }
+  $.ajax({
+      url: "/admin/subcription/delete/"+id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+      toastr.success(reponse.messages.success)
+      },
+      error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+       for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+       }
+      }
+  })
+}
+
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+function modify_product(id,csrf_token) {
+  product_name =$('#modify-name').val()
+  price = $('#modify-price').val()
+  product_types_id= $('#modify-product-type').val()
+  image = $('#modify-hidden-img').val()
+  reduction = $('#modify-reduction').val()
+  description = $('#modify-description').val()
+let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  if($("#modify-check-status").is(":checked")){
+    data['status']= '1'
+  } else{
+      data['status']= '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/user/update/" + $id,
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}
+
+function delete_wa(id,csrf_token){
+  let data = { id: id, csrf_token_name: csrf_token }
+  $.ajax({
+      url: "/admin/user/delete/"+id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+      toastr.success(reponse.messages.success)
+      },
+      error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+       for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+       }
+      }
+  })
+}
+function add_product(csrf_token) {
+  product_name = $('#add-name').val()
+  price = $('#add-price').val()
+  product_types_id = $('#add-product-type').val()
+  image = $('#add-hidden-img').val()
+  reduction = $('#add-reduction').val()
+  description = $('#add-description').val()
+  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+  if ($("#add-check-status").is(":checked")) {
+    data['status'] = '1'
+  } else {
+    data['status'] = '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/product/create/",
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      for (var message in errors.messages) {
+        toastr.error(errors.messages[message])
+      }
+    }
+  })
+}
+function modify_warehouse(id,csrf_token) {
+  warehouse_name =$('#modify-name').val()
+  price = $('#modify-price').val()
+  product_types_id= $('#modify-product-type').val()
+  image = $('#modify-hidden-img').val()
+  reduction = $('#modify-reduction').val()
+  description = $('#modify-description').val()
+let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  if($("#modify-check-status").is(":checked")){
+    data['status']= '1'
+  } else{
+      data['status']= '0'
+  }
+  console.log(data)
+  $.ajax({
+    url: "/admin/warehouse/update/" + $id,
+    type: "POST",
+    data: data,
+    success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+      toastr.success(reponse.message)
+    },
+    error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+        window.location.reload();
+      };
+       for (var message in errors.messages){
+         toastr.error(errors.messages[message])
+       }
+    }
+  })
+}
+
+function delete_product(id,csrf_token){
+  let data = { id: id, csrf_token_name: csrf_token }
+  $.ajax({
+      url: "/admin/warehouse/delete/"+id,
+      type: "POST",
+      data: data,
+      success: function (reponse) {
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+      toastr.success(reponse.messages.success)
+      },
+      error: function (reponse) {
+      var errors = JSON.parse(reponse.responseText)
+      toastr.options.timeOut = 750;
+      toastr.options.fadeOut = 1000;
+      toastr.options.onHidden = function () {
+          window.location.reload();
+      };
+      console.log(reponse)
+       for (var message in errors.messages){
+           toastr.error(errors.messages[message])
+       }
+      }
+  })
+}

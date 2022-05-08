@@ -3,8 +3,9 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
+use CodeIgniter\API\ResponseTrait;
 
-class OrdersController extends ResourcePresenter
+class OrderController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\OrderModel';
     protected $format    = 'json';

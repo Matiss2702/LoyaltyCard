@@ -3,8 +3,8 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
-
-class ProductTypesController extends ResourcePresenter
+use CodeIgniter\API\ResponseTrait;
+class ProductTypeController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\ProductTypeModel';
     use ResponseTrait;

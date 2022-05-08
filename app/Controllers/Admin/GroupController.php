@@ -3,8 +3,9 @@
 namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
+use CodeIgniter\API\ResponseTrait;
 
-class GroupsController extends ResourcePresenter
+class GroupController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\GroupModel';
     protected $format    = 'json';
