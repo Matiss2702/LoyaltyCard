@@ -35,19 +35,16 @@ class ProfileController extends ResourceController
         }
         try {
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
-            $data=$decoded->user;
-            var_dump($data);
-            var_dump(json_decode(json_encode($data), true)['id']);
-            $user = $userModel->find($decoded->user['id']);
-            
+            $data = json_decode($decoded->user, true);
+            $user = $userModel->find($data['id']);
 
             if(empty($user)) {
-                $user = $partnerModel->find($decoded->user['id']);
+                $user = $partnerModel->find($data['id']);
             }
             if(empty($user)) {
                 return $this->failNotFound('aucun utilisateur trouvé');
             }
-            return $this->respond($data);
+            return $this->respond($user);
         } catch (Exception $ex) {
             return $this->fail('Invalid Token');
         }

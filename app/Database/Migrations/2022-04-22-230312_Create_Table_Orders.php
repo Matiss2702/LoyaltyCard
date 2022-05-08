@@ -52,12 +52,7 @@ class Create_Table_Orders extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '60',
                 'null' => false
-            ],     
-            'payment_compagny' => [
-                'type' => 'VARCHAR',
-                'constraint' => '100',
-                'null' => false
-            ],    
+            ],        
             'payment_address' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

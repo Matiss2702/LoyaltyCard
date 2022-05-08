@@ -64,13 +64,11 @@ class LoginController extends ResourceController
         $exp = $iat + (60 * 60 * 24 * 7);
         $user_data ='{ 
             "id" :'.$user['id'].',
-            "lastname":'.$user['lastname'].',
-            "firstname":'.$user['firstname'].',
-            "mail":'.$user['mail'].',
-            "group":'.$groupModel->find($user['group_id'])['name'].'
-        
+            "lastname":"'.$user['lastname'].'",
+            "firstname":"'.$user['firstname'].'",
+            "mail":"'.$user['mail'].'",
+            "group":"'.$groupModel->find($user['group_id'])['name'].'"
         }';
-        
         $payload = array(
             "iat" => $iat,
             "exp" => $exp,

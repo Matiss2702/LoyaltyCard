@@ -96,7 +96,7 @@ class ProductController extends ResourcePresenter
                 'rules'=>'decimal|required',
                 'errors'=>[
                   'required'=>'la ville doit etre donnée',
-                'decimal'=>'la reduction doit etre donnée'
+                  'decimal'=>'la reduction doit etre donnée'
                 ]
               ],
               'product_types_id'=>[

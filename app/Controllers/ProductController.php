@@ -37,4 +37,22 @@ class ProductController extends BaseController
 
         return view('show_product', $data);
     }
+    public function add_cart($id)
+    {
+        $cart = \Config\Services::cart();
+        $session = \Config\Services::session();
+        $productModel = new ProductModel();
+        $product = $productModel->find($id);
+        $data = [
+            'id' => $id,
+            'name' =>  $product['name'],
+            'price' =>  $product['price'],
+            'image' =>  $product['image'],
+            'reduction' => $product['reduction'],
+            'quantity' => $this->request->getVar('quantity'),
+            'description' => $product['description'],
+        ];
+        $cart->insert($data);
+    }
+   
 }
