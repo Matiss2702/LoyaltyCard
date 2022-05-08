@@ -61,30 +61,23 @@ class StocksController extends ResourcePresenter
 
         $rules = [
             'warehouses_id' => [
-                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[30]',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'le nom est requis',
-                    'alpha_numeric_space' => 'le nom ne doit pas contenir de caractere spéciaux',
-                    'min_length' => 'le nom doit contenir 3 caractere minimun',
-                    'max_length' => ' le nom doit contenir 30 caractere maximun',
+                    'numeric' => 'le nom ne doit pas contenir des chiffres',
                 ]
             ],
             'products_id' => [
-                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[30]',
+                'rules' => 'required|numeric',
                 'errors' => [
                     'required' => 'le nom est requis',
-                    'alpha_numeric_space' => 'le nom ne doit pas contenir de caractere spéciaux',
-                    'min_length' => 'le nom doit contenir 3 caractere minimun',
-                    'max_length' => ' le nom doit contenir 30 caractere maximun',
+                    'numeric' => 'le nom ne doit pas contenir des chiffres',
                 ]
             ],
             'quantity' => [
-                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[30]',
+                'rules' => 'numeric',
                 'errors' => [
-                    'required' => 'le nom est requis',
-                    'alpha_numeric_space' => 'le nom ne doit pas contenir de caractere spéciaux',
-                    'min_length' => 'le nom doit contenir 3 caractere minimun',
-                    'max_length' => ' le nom doit contenir 30 caractere maximun',
+                    'numeric' => 'le nom ne doit pas contenir de caractere spéciaux',
                 ]
             ],
         ];
@@ -100,7 +93,19 @@ class StocksController extends ResourcePresenter
      */
     public function update($id = null)
     {
-        //
+        if (!$this->validate($rules)) {
+            return $this->fail($this->validator->getErrors());
+        }
+
+        $this->model->update($id, $data);
+        $response = [
+            'status'   => 200,
+            'error'    => null,
+            'messages' => [
+                'success' => 'le stock est modifier avec succès'
+            ]
+        ];
+        return $this->respond($response);
     }
 
     /**
@@ -112,6 +117,19 @@ class StocksController extends ResourcePresenter
      */
     public function delete($id = null)
     {
-        //
+        $data = $this->model->where('id', $id)->delete($id);
+        if ($data) {
+            $this->model->delete($id);
+            $response = [
+                'status'   => 200,
+                'error'    => null,
+                'messages' => [
+                    'success' => 'le stock est supprimer avec success'
+                ]
+            ];
+            return $this->respondDeleted($response);
+        } else {
+            return $this->failNotFound('aucun stock trouver');
+        }
     }
 }

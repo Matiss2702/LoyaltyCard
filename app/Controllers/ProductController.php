@@ -4,11 +4,12 @@ namespace App\Controllers;
 
 use App\Models\ProductModel;
 use App\Models\ProductTypeModel;
-
+use CodeIgniter\API\ResponseTrait;
 
 
 class ProductController extends BaseController
 {
+    use ResponseTrait;
     public function index()
     {   
         $session = \Config\Services::session();
@@ -46,7 +47,7 @@ class ProductController extends BaseController
         $data = [
             'id' => $id,
             'name' =>  $product['name'],
-            'price' =>  $product['price'],
+            'sub_total' =>  $product['sub_total'],
             'image' =>  $product['image'],
             'reduction' => $product['reduction'],
             'quantity' => $this->request->getVar('quantity'),
