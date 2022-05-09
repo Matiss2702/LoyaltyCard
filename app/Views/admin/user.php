@@ -43,7 +43,7 @@
             <?php if ($role['id'] == $user['group_id']) : ?>
               <td><?= $role['name'] ?></td>
             <?php endif; ?>
-          <?php endforeach; ?>>
+          <?php endforeach; ?>
           <td><?= $user['fidelity_points'] ?></td>
           <td><?= $user['status'] ?></td>
           <td><button type="button" class="btn btn-outline-success" onclick="modify_user('<?= $user['id'] ?>', '<?= $user['lastname'] ?>', '<?= $user['firstname'] ?>', '<?= $user['password'] ?>',
@@ -83,7 +83,7 @@
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-password" class="form-label">password</label>
-            <input class="form-control" type="text" id="add-password" name="add-password" placeholder="password">
+            <input class="form-control" type="password" id="add-password" name="add-password" placeholder="password">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-mail" class="form-label">mail</label>
@@ -91,7 +91,7 @@
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-address" class="form-label">address</label>
-           
+            <input class="form-control" type="float" id="add-address" name="add-address" placeholder="address">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-city" class="form-label">city</label>
@@ -142,9 +142,13 @@
 
         <!-- Modal body -->
         <div class="modal-body">
+        <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $user['id'] ?>">
+          </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-firstname" class="form-label">firstname</label>
-            <input class="form-control" type="text" id="modify-firstname" name="modify-firstname" placeholder="firstname" value="<?= $user['id'] ?>">
+            <input class="form-control" type="text" id="modify-firstname" name="modify-firstname" placeholder="firstname">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-lastname" class="form-label">lastname</label>

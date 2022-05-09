@@ -71,10 +71,9 @@ class ProductController extends ResourceController
                ]
               ],
             'image' => [
-                'rules' => 'required|regex_match[/\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_[A-Za-z0-9_@#-]*+(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF)/]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => 'l\'image est requise',
-                    'regex_match' => 'le nom du fichier doit etre nomée sous le format 2022-01-24_nom_de_fichier.ext',
                 ]
               ],
               'reduction'=>[
@@ -154,10 +153,9 @@ class ProductController extends ResourceController
                 ]
             ],
             'image' => [
-                'rules' => 'required|regex_match[/\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])_[A-Za-z0-9_@#-]*+(.jpg|.JPG|.jpeg|.JPEG|.png|.PNG|.gif|.GIF)/]',
+                'rules' => 'required',
                 'errors' => [
                     'required' => 'l\'image est requise',
-                    'regex_match' => 'le nom du fichier doit etre nomée sous le format 2022-01-24_nom_de_fichier.ext',
                 ]
             ],
             'reduction' => [

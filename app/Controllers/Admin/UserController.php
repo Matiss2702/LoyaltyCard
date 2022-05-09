@@ -58,6 +58,8 @@ class UserController extends ResourcePresenter
      */
     public function create()
     {
+        $session = \Config\Services::session();
+        $validation = \Config\Services::validation();
         $data = [
             'password' => sha1($this->request->getVar('password')),
             'lastname' => $this->request->getVar('lastname'),
@@ -72,36 +74,30 @@ class UserController extends ResourcePresenter
             'status' => $this->request->getVar('status'),
         ];
         $rules = [
-            'password' => [
-                'rules' => 'required|min_length[8]',
-                'errors' =>  [
-                    'required' => 'le mot de passe est requis',
-                    'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
-                ]
-            ],
-            'pass_confirm' => [
-                'rules' => 'required_with[password]|matches[password]',
-                'errors' => [
-                    'required_with' => 'le mot de passe doit etre remplis avant ',
-                    'matches' => 'le confirmation doit corespondre au mot de passe',
-                ]
-            ],
+
             'lastname' => [
-                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[10]',
+                'rules' => 'required|alpha|min_length[3]|max_length[10]',
                 'errors' => [
                     'required' => 'le nom est requis',
-                    'alpha_numeric_space' => 'le nom ne doit pas contenir de caractere spéciaux',
+                    'alpha' => 'le nom doit contenir que des lettres',
                     'min_length' => 'le nom doit contenir 3 caractere minimun',
                     'max_length' => ' le nom doit contenir 10 caractere maximun',
                 ]
             ],
             'firstname' => [
-                'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[10]',
+                'rules' => 'required|alpha|min_length[3]|max_length[10]',
                 'errors' =>  [
                     'required' => 'le prenom est requis',
-                    'alpha_numeric_space' => 'le prenom ne doit pas contenir de caractere spéciaux',
+                    'alpha' => 'le prenom doit contenir que des lettres',
                     'min_length' => 'le prenom doit contenir 3 caractere minimun',
                     'max_length' => ' le prenom doit contenir 10 caractere maximun',
+                ]
+            ],
+           'password' => [
+                'rules' =>'required|min_length[8]',
+                'errors' =>  [
+                  'required' =>'le mot de passe est requis',
+                  'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
                 ]
             ],
             'mail' => [
@@ -113,10 +109,10 @@ class UserController extends ResourcePresenter
                 ]
             ],
             'address' => [
-                'rules' => 'alpha_numeric_space|required',
+                'rules' => 'alpha_dash|required',
                 'errors' => [
                     'required' => 'l\'adresse doit etre',
-                    'alpha_numeric_space' => 'il ne doit pas contenir des caractere spéciaux'
+                   'alpha_dash' => 'l\'adresse doit contenir que des lettres, des chiffres et des tirets bas',
                 ]
             ],
             'country' => [
@@ -162,8 +158,7 @@ class UserController extends ResourcePresenter
                     'numeric' => 'il doit contenir que des chiffres',
                 ]
             ],
-        ];
-
+        ];     
         if (!$this->validate($rules)) {
             return $this->fail($this->validator->getErrors());
         }

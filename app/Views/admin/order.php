@@ -62,10 +62,9 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="mb-3 d-grid text-center form-group">
-            <img src="<?= base_url('images/default.png') ?>" alt="product" class="img-fluid" id="add-img" onclick="img_data('add')" data-bs-toggle="modal" data-bs-target="#image-modal">
-            <span>Cliquez pour modifier l'image</span>
-            <input type="hidden" id="add-hidden-img">
+        <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $product['id'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-name" class="form-label">name</label>

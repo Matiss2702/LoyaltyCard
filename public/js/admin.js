@@ -78,13 +78,14 @@ function add_product(csrf_token) {
 }
 
 function modify_product(id,csrf_token) {
+    id =$('#modify-id').val()
     product_name =$('#modify-name').val()
     price = $('#modify-price').val()
     product_types_id= $('#modify-product-type').val()
     image = $('#modify-hidden-img').val()
     reduction = $('#modify-reduction').val()
     description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -92,7 +93,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/product/update/" + $id,
+      url: "/admin/product/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -118,7 +119,7 @@ function modify_product(id,csrf_token) {
 }
 
 function delete_product(id,csrf_token){
-    let data = { id: id, csrf_token_name: csrf_token }
+    let data = { id: $id, csrf_token_name: csrf_token }
     $.ajax({
         url: "/admin/product/delete/"+id,
         type: "POST",
@@ -149,7 +150,7 @@ function delete_product(id,csrf_token){
 function add_user(csrf_token) {
   lastname = $('#add-lastname').val()
   firstname = $('#add-firstname').val()
-  password = $('#add-password').val()
+  password= $('#add-password').val()
   mail = $('#add-mail').val()
   address = $('#add-address').val()
   city = $('#add-city').val()
@@ -157,7 +158,7 @@ function add_user(csrf_token) {
   country = $('#add-country').val()
   group_id = $('#add-group_id').val()
   fidelity_points = $('#add-fidelity_points').val()
-  let data = { lastname: lastname, firstname: firstname, password:password, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
+  let data = { lastname: lastname, firstname: firstname,password: password, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
   if ($("#add-check-status").is(":checked")) {
     data['status'] = '1'
   } else {
@@ -191,6 +192,7 @@ function add_user(csrf_token) {
 }
 
 function modify_user(id,csrf_token) {
+  id =$('#modify-id').val()
   lastname = $('#modify-lastname').val()
   firstname = $('#modify-firstname').val()
   password = $('#modify-password').val()
@@ -201,7 +203,7 @@ function modify_user(id,csrf_token) {
   country = $('#modify-country').val()
   group_id = $('#modify-group_id').val()
   fidelity_points = $('#modify-fidelity_points').val()
-  let data = { lastname: lastname, firstname: firstname, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
+  let data = { id: id, lastname: lastname, firstname: firstname, mail: mail, address: address, city: city, zipcode: zipcode,country: country,group_id: group_id,fidelity_points: fidelity_points, csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -209,7 +211,7 @@ function modify_user(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/user/update/" + $id,
+      url: "/admin/user/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -264,14 +266,14 @@ function delete_user(id,csrf_token){
     })
 }
 
-function add_product(csrf_token) {
-  product_name = $('#add-name').val()
-  price = $('#add-price').val()
-  product_types_id = $('#add-product-type').val()
-  image = $('#add-hidden-img').val()
-  reduction = $('#add-reduction').val()
-  description = $('#add-description').val()
-  let data = { name: product_name, price: price, product_types_id: product_types_id, image: image, reduction: reduction, description: description, csrf_token_name: csrf_token }
+function add_warehouse(csrf_token) {
+  warehouse_name = $('#add-name').val()
+  company_id = $('#add-company_id').val()
+  address = $('#add-address').val()
+  city = $('#add-city').val()
+  zipcode = $('#add-zipcode').val()
+  country = $('#add-country').val()
+  let data = { name: name, company_id: company_id, address: address, city: city, zipcode: zipcode, country: country, csrf_token_name: csrf_token }
   if ($("#add-check-status").is(":checked")) {
     data['status'] = '1'
   } else {
@@ -279,7 +281,7 @@ function add_product(csrf_token) {
   }
   console.log(data)
   $.ajax({
-    url: "/admin/product/create/",
+    url: "/admin/warehouse/create/",
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -304,14 +306,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
-    product_name =$('#modify-name').val()
-    price = $('#modify-price').val()
-    product_types_id= $('#modify-product-type').val()
-    image = $('#modify-hidden-img').val()
-    reduction = $('#modify-reduction').val()
-    description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+function modify_warehouse(id,csrf_token) {
+  id =$('#modify-id').val()
+  warehouse_name = $('#modify-name').val()
+  company_id = $('#modify-company_id').val()
+  address = $('#modify-address').val()
+  city = $('#modify-city').val()
+  zipcode = $('#modify-zipcode').val()
+  country = $('#modify-country').val()
+  let data = { id: id, name: warehouse_name, company_id: company_id, address: address, city: city, zipcode: zipcode, country: country, csrf_token_name: csrf_token  }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -319,7 +322,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/company/update/" + $id,
+      url: "/admin/warehouse/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -344,10 +347,10 @@ function modify_product(id,csrf_token) {
     })
 }
 
-function delete_product(id,csrf_token){
+function delete_warehouse(id,csrf_token){
     let data = { id: id, csrf_token_name: csrf_token }
     $.ajax({
-        url: "/admin/company/delete/"+id,
+        url: "/admin/warehouse/delete/"+id,
         type: "POST",
         data: data,
         success: function (reponse) {
@@ -373,7 +376,7 @@ function delete_product(id,csrf_token){
         }
     })
 }
-function add_product(csrf_token) {
+function add_subcription(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -413,14 +416,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
+function modify_subcription(id,csrf_token) {
+    id =$('#modify-id').val()
     product_name =$('#modify-name').val()
     price = $('#modify-price').val()
     product_types_id= $('#modify-product-type').val()
     image = $('#modify-hidden-img').val()
     reduction = $('#modify-reduction').val()
     description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -428,7 +432,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/group/update/" + $id,
+      url: "/admin/group/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -453,7 +457,7 @@ function modify_product(id,csrf_token) {
     })
 }
 
-function delete_product(id,csrf_token){
+function delete_subcription(id,csrf_token){
     let data = { id: id, csrf_token_name: csrf_token }
     $.ajax({
         url: "/admin/group/delete/"+id,
@@ -482,7 +486,7 @@ function delete_product(id,csrf_token){
         }
     })
 }
-function add_product(csrf_token) {
+function add_product_type(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -522,14 +526,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
+function modify_product_type(id,csrf_token) {
+    id =$('#modify-id').val()
     product_name =$('#modify-name').val()
     price = $('#modify-price').val()
     product_types_id= $('#modify-product-type').val()
     image = $('#modify-hidden-img').val()
     reduction = $('#modify-reduction').val()
     description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -537,7 +542,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/order/update/" + $id,
+      url: "/admin/order/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -562,7 +567,7 @@ function modify_product(id,csrf_token) {
     })
 }
 
-function delete_product(id,csrf_token){
+function delete_product_type(id,csrf_token){
     let data = { id: id, csrf_token_name: csrf_token }
     $.ajax({
         url: "/admin/order/delete/"+id,
@@ -591,7 +596,7 @@ function delete_product(id,csrf_token){
         }
     })
 }
-function add_product(csrf_token) {
+function add_partner(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -631,14 +636,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
+function modify_partner(id,csrf_token) {
+    id =$('#modify-id').val()
     product_name =$('#modify-name').val()
     price = $('#modify-price').val()
     product_types_id= $('#modify-product-type').val()
     image = $('#modify-hidden-img').val()
     reduction = $('#modify-reduction').val()
     description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -646,7 +652,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/partner/update/" + $id,
+      url: "/admin/partner/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -671,7 +677,7 @@ function modify_product(id,csrf_token) {
     })
 }
 
-function delete_product(id,csrf_token){
+function delete_partner(id,csrf_token){
     let data = { id: id, csrf_token_name: csrf_token }
     $.ajax({
         url: "/admin/partner/delete/"+id,
@@ -700,7 +706,7 @@ function delete_product(id,csrf_token){
         }
     })
 }
-function add_product(csrf_token) {
+function add_order_product(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -740,14 +746,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
+function modify_order_product(id,csrf_token) {
+    id =$('#modify-id').val()
     product_name =$('#modify-name').val()
     price = $('#modify-price').val()
     product_types_id= $('#modify-product-type').val()
     image = $('#modify-hidden-img').val()
     reduction = $('#modify-reduction').val()
     description = $('#modify-description').val()
-  let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+  let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
     if($("#modify-check-status").is(":checked")){
       data['status']= '1'
     } else{
@@ -755,7 +762,7 @@ function modify_product(id,csrf_token) {
     }
     console.log(data)
     $.ajax({
-      url: "/admin/orderproduct/update/" + $id,
+      url: "/admin/orderproduct/update/" + id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -780,7 +787,7 @@ function modify_product(id,csrf_token) {
     })
 }
 
-function delete_product(id,csrf_token){
+function delete_order_product(id,csrf_token){
     let data = { id: id, csrf_token_name: csrf_token }
     $.ajax({
         url: "/admin/orderproduct/delete/"+id,
@@ -810,7 +817,7 @@ function delete_product(id,csrf_token){
     })
 }
 
-function add_product(csrf_token) {
+function add_order(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -825,7 +832,7 @@ function add_product(csrf_token) {
   }
   console.log(data)
   $.ajax({
-    url: "/admin/product/create/",
+    url: "/admin/order/create/",
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -850,14 +857,15 @@ function add_product(csrf_token) {
   })
 }
 
-function modify_product(id,csrf_token) {
+function modify_order(id,csrf_token) {
+  id =$('#modify-id').val()
   product_name =$('#modify-name').val()
   price = $('#modify-price').val()
   product_types_id= $('#modify-product-type').val()
   image = $('#modify-hidden-img').val()
   reduction = $('#modify-reduction').val()
   description = $('#modify-description').val()
-let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
   if($("#modify-check-status").is(":checked")){
     data['status']= '1'
   } else{
@@ -865,7 +873,7 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   }
   console.log(data)
   $.ajax({
-    url: "/admin/producttype/update/" + $id,
+    url: "/admin/order/update/" + id,
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -890,10 +898,10 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   })
 }
 
-function delete_product(id,csrf_token){
+function delete_order(id,csrf_token){
   let data = { id: id, csrf_token_name: csrf_token }
   $.ajax({
-      url: "/admin/producttype/delete/"+id,
+      url: "/admin/order/delete/"+id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -919,7 +927,7 @@ function delete_product(id,csrf_token){
       }
   })
 }
-function add_product(csrf_token) {
+function add_group(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -934,7 +942,7 @@ function add_product(csrf_token) {
   }
   console.log(data)
   $.ajax({
-    url: "/admin/product/create/",
+    url: "/admin/group/create/",
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -958,14 +966,15 @@ function add_product(csrf_token) {
     }
   })
 }
-function modify_product(id,csrf_token) {
+function modify_group(id,csrf_token) {
+  id =$('#modify-id').val()
   product_name =$('#modify-name').val()
   price = $('#modify-price').val()
   product_types_id= $('#modify-product-type').val()
   image = $('#modify-hidden-img').val()
   reduction = $('#modify-reduction').val()
   description = $('#modify-description').val()
-let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
   if($("#modify-check-status").is(":checked")){
     data['status']= '1'
   } else{
@@ -973,7 +982,7 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   }
   console.log(data)
   $.ajax({
-    url: "/admin/subcription/update/" + $id,
+    url: "/admin/group/update/" + id,
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -998,10 +1007,10 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   })
 }
 
-function delete_product(id,csrf_token){
+function delete_group(id,csrf_token){
   let data = { id: id, csrf_token_name: csrf_token }
   $.ajax({
-      url: "/admin/subcription/delete/"+id,
+      url: "/admin/group/delete/"+id,
       type: "POST",
       data: data,
       success: function (reponse) {
@@ -1028,7 +1037,7 @@ function delete_product(id,csrf_token){
   })
 }
 
-function add_product(csrf_token) {
+function add_company(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -1067,14 +1076,15 @@ function add_product(csrf_token) {
     }
   })
 }
-function modify_product(id,csrf_token) {
+function modify_company(id,csrf_token) {
+  id =$('#modify-id').val()
   product_name =$('#modify-name').val()
   price = $('#modify-price').val()
   product_types_id= $('#modify-product-type').val()
   image = $('#modify-hidden-img').val()
   reduction = $('#modify-reduction').val()
   description = $('#modify-description').val()
-let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
   if($("#modify-check-status").is(":checked")){
     data['status']= '1'
   } else{
@@ -1082,7 +1092,7 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   }
   console.log(data)
   $.ajax({
-    url: "/admin/user/update/" + $id,
+    url: "/admin/user/update/" + id,
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -1107,7 +1117,7 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   })
 }
 
-function delete_wa(id,csrf_token){
+function delete_company(id,csrf_token){
   let data = { id: id, csrf_token_name: csrf_token }
   $.ajax({
       url: "/admin/user/delete/"+id,
@@ -1136,7 +1146,7 @@ function delete_wa(id,csrf_token){
       }
   })
 }
-function add_product(csrf_token) {
+function add_stock(csrf_token) {
   product_name = $('#add-name').val()
   price = $('#add-price').val()
   product_types_id = $('#add-product-type').val()
@@ -1151,7 +1161,7 @@ function add_product(csrf_token) {
   }
   console.log(data)
   $.ajax({
-    url: "/admin/product/create/",
+    url: "/admin/stock/create/",
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -1175,14 +1185,15 @@ function add_product(csrf_token) {
     }
   })
 }
-function modify_warehouse(id,csrf_token) {
+function modify_stock(id,csrf_token) {
+  id =$('#modify-id').val()
   warehouse_name =$('#modify-name').val()
   price = $('#modify-price').val()
   product_types_id= $('#modify-product-type').val()
   image = $('#modify-hidden-img').val()
   reduction = $('#modify-reduction').val()
   description = $('#modify-description').val()
-let data = { id: $id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
+let data = { id: id, name: product_name, price: price,product_types_id: product_types_id,image: image,reduction: reduction,description: description,csrf_token_name: csrf_token }
   if($("#modify-check-status").is(":checked")){
     data['status']= '1'
   } else{
@@ -1190,7 +1201,7 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   }
   console.log(data)
   $.ajax({
-    url: "/admin/warehouse/update/" + $id,
+    url: "/admin/stock/update/" + id,
     type: "POST",
     data: data,
     success: function (reponse) {
@@ -1215,10 +1226,10 @@ let data = { id: $id, name: product_name, price: price,product_types_id: product
   })
 }
 
-function delete_product(id,csrf_token){
+function delete_stock(id,csrf_token){
   let data = { id: id, csrf_token_name: csrf_token }
   $.ajax({
-      url: "/admin/warehouse/delete/"+id,
+      url: "/admin/stock/delete/"+id,
       type: "POST",
       data: data,
       success: function (reponse) {

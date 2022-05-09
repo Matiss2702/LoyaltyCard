@@ -65,13 +65,6 @@ class UserController extends ResourceController
                     'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
                 ]
             ],
-            'pass_confirm' => [
-                'rules' => 'required_with[password]|matches[password]',
-                'errors' => [
-                    'required_with' => 'le mot de passe doit etre remplis avant ',
-                    'matches' => 'le confirmation doit corespondre au mot de passe',
-                ]
-            ],
             'lastname' => [
                 'rules' => 'required|alpha_numeric_space|min_length[3]|max_length[10]',
                 'errors' => [
@@ -192,13 +185,6 @@ class UserController extends ResourceController
                 'errors' =>  [
                     'required' =>'le mot de passe est requis',
                     'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
-                ]
-            ],
-            'pass_confirm' => [
-                'rules' =>'required_with[password]|matches[password]',
-                'errors' => [
-                    'required_with' =>'le mot de passe doit etre remplis avant ',
-                    'matches' =>'le confirmation doit corespondre au mot de passe',
                 ]
             ],
             'lastname' => [

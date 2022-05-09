@@ -124,12 +124,16 @@
             <input type="hidden" id="modify-hidden-img">
           </div>
           <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $product['id'] ?>">
+          </div>
+          <div class="mb-3 d-grid text-center form-group">
             <label for="modify-name" class="form-label">name</label>
-            <input class="form-control" type="text" id="modify-name" name="modify-name" placeholder="nom" value="<?= $product['id'] ?>">
+            <input class="form-control" type="text" id="modify-name" name="modify-name" placeholder="nom" value="<?= $product['name'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-price" class="form-label">price</label>
-            <input class="form-control" type="float" id="modify-price" name="modify-price" placeholder="prix">
+            <input class="form-control" type="float" id="modify-price" name="modify-price" placeholder="prix" value="<?= $product['price'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-product-type" class="form-label">product_types_id</label>
@@ -141,11 +145,11 @@
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-reduction" class="form-label">reduction</label>
-            <input class="form-control" type="float" id="modify-reduction" name="modify-reduction" placeholder="reduction">
+            <input class="form-control" type="float" id="modify-reduction" name="modify-reduction" placeholder="reduction"value="<?= $product['reduction'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-description" class="form-label">description</label>
-            <input class="form-control" type="text" id="modify-description" name="modify-description" placeholder="description">
+            <input class="form-control" type="text" id="modify-description" name="modify-description" placeholder="description"value="<?= $product['description'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <div class="form-check form-switch">

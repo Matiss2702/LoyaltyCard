@@ -18,7 +18,7 @@ class WarehouseController extends ResourcePresenter
         $session = \Config\Services::session();
         $data = [
             'title' => 'entrepot',
-            'company_id' => $this->model->findAll(),
+            'warehouses' => $this->model->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];
         return view('admin/warehouse', $data);
@@ -37,7 +37,7 @@ class WarehouseController extends ResourcePresenter
         $companyModel = new CompanyModel();
         $data = [
             'title'=> 'entrepot',
-            'warehouses' => $this->model->find($id),
+            'warehouse' => $this->model->find($id),
             'company_id' => $companyModel->find($this->model->find($id)['company_id'],),
             'is_login' => $session->get('isLoggedIn'),
         ];

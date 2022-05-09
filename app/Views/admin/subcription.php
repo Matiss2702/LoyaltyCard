@@ -1,10 +1,10 @@
 <?= $this->extend('layouts/admin') ?>
 
 <?= $this->section('content') ?>
-<h1 class="mt-4">Produit</h1>
+<h1 class="mt-4">abonnement</h1>
 <ol class="breadcrumb mb-4">
  <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
- <li class="breadcrumb-item active">Produit</li>
+ <li class="breadcrumb-item active">Abonnement</li>
 </ol>
 <div class="row pt-5">
   <div class="pb-2 row">
@@ -13,31 +13,27 @@
   <table id="product-table">
     <thead>
       <tr>
-        <th></th>
+        <th>id</th>
         <th>name</th>
         <th>price</th>
-        <th>reduction</th>
-        <th>type</th>
+        <th>nb_users</th>
+        <th>description</th>
         <th>status</th>
         <th></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($products as $product) : ?>
+      <?php foreach ($subcription as $abonnement) : ?>
         <tr>
-          <td><?= $product['id'] ?></td>
-          <td><?= $product['name'] ?></td>
-          <td><?= $product['price'] ?></td>
-          <td><?= $product['reduction'] ?></td>
-          <?php foreach ($productTypes as $type) : ?>
-            <?php if ($type['id'] == $product['product_types_id']) : ?>
-              <td><?= $type['name'] ?></td>
-            <?php endif; ?>
-          <?php endforeach; ?>
+          <td><?= $abonnement['id'] ?></td>
+          <td><?= $abonnement['name'] ?></td>
+          <td><?= $abonnement['price'] ?></td>
+          <td><?= $abonnement['nb_users'] ?></td>
+          <td><?= $abonnement['description'] ?></td>
           <td><?= $product['status'] ?></td>
-          <td><button type="button" class="btn btn-outline-success" onclick="modify_product('<?= $product['id'] ?>', '<?= $product['image'] ?>', '<?= $product['name'] ?>',
-          '<?= $product['price'] ?>', '<?= $product['product_types_id'] ?>', '<?= $product['reduction'] ?>', '<?= $product['description'] ?>', '<?= $product['status'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
+          <td><button type="button" class="btn btn-outline-success" onclick="modify_subcription('<?= $abonnement['id'] ?>', '<?= $abonnement['name'] ?>', '<?= $abonnement['price'] ?>',
+          '<?= $abonnement['nb_users'] ?>', '<?= $abonnement['productdescription'] ?>', '<?= $abonnement['status'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
           <td><button type="button" class="btn btn-outline-success" onclick="delete_modal('<?= $product['id'] ?>')" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fa-solid fa-trash-can"></i></button></td>
         </tr>
       <?php endforeach; ?>
@@ -62,10 +58,9 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="mb-3 d-grid text-center form-group">
-            <img src="<?= base_url('images/default.png') ?>" alt="product" class="img-fluid" id="add-img" onclick="img_data('add')" data-bs-toggle="modal" data-bs-target="#image-modal">
-            <span>Cliquez pour modifier l'image</span>
-            <input type="hidden" id="add-hidden-img">
+        <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $product['id'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="add-name" class="form-label">name</label>
