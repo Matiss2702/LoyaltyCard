@@ -144,36 +144,39 @@
         <div class="modal-body">
         <div class="mb-3 d-grid text-center form-group">
             <label for="modify-id" class="form-label d-none">id</label>
-            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $user['id'] ?>">
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" value="id" value="<?= $user['id'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-firstname" class="form-label">firstname</label>
-            <input class="form-control" type="text" id="modify-firstname" name="modify-firstname" placeholder="firstname">
+            <input class="form-control" type="text" id="modify-firstname" name="modify-firstname" value="<?= $user['firstname'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-lastname" class="form-label">lastname</label>
-            <input class="form-control" type="float" id="modify-lastname" name="modify-lastname" placeholder="lastname">
+            <input class="form-control" type="float" id="modify-lastname" name="modify-lastname" value="<?= $user['lastname'] ?>">
           </div>
-     
+          <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-password" class="form-label">password</label>
+            <input class="form-control" type="password" id="modify-password" name="modify-password" value="<?= $user['password'] ?>">
+          </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-mail" class="form-label">mail</label>
-            <input class="form-control" type="float" id="modify-mail" name="modify-mail" placeholder="mail">
+            <input class="form-control" type="float" id="modify-mail" name="modify-mail" value="<?= $user['mail'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-address" class="form-label">address</label>
-            <input class="form-control" type="text" id="modify-address" name="modify-address" placeholder="address">
+            <input class="form-control" type="text" id="modify-address" name="modify-address" value="<?= $user['address'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-city" class="form-label">city</label>
-            <input class="form-control" type="text" id="modify-city" name="modify-city" placeholder="city">
+            <input class="form-control" type="text" id="modify-city" name="modify-city" value="<?= $user['city'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-zipcode" class="form-label">zipcode</label>
-            <input class="form-control" type="text" id="modify-zipcode" name="modify-zipcode" placeholder="zipcode">
+            <input class="form-control" type="text" id="modify-zipcode" name="modify-zipcode" value="<?= $user['zipcode'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-country" class="form-label">country</label>
-            <input class="form-control" type="text" id="modify-country" name="modify-country" placeholder="country">
+            <input class="form-control" type="text" id="modify-country" name="modify-country" value="<?= $user['country'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-group_id" class="form-label">group</label>
@@ -185,7 +188,7 @@
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-fidelity_points" class="form-label">fidelity_points</label>
-            <input class="form-control" type="text" id="modify-fidelity_points" name="modify-fidelity_points" placeholder="fidelity_points">
+            <input class="form-control" type="text" id="modify-fidelity_points" name="modify-fidelity_points" placeholder="<?= $user['fidelity_points'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <div class="form-check form-switch">

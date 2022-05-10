@@ -157,7 +157,7 @@
               <label class="form-check-label" for="modify-check-status">status</label>
             </div>
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="modify_product($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">Se Connecter</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="modify_product($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">Modifié</button>
         </div>
 
         <!-- Modal footer -->

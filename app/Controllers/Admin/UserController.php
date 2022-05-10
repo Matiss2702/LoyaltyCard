@@ -39,11 +39,11 @@ class UserController extends ResourcePresenter
     public function show($id = null)
     {
         $session = \Config\Services::session();
-        $GroupModel = new GroupModel();
+        $groupModel = new GroupModel();
         $data = [
             'title'=> 'utilisateur',
             'user' => $this->model->find($id),
-            'group_id' => $UserModel->find($this->model->find($id)['group_id'],),
+            'group_id' => $groupModel->find($this->model->find($id)['group_id'],),
             'is_login' => $session->get('isLoggedIn'),
         ];
 
@@ -205,13 +205,6 @@ class UserController extends ResourcePresenter
                 'errors' =>  [
                     'required' =>'le mot de passe est requis',
                     'min_length' => 'le mot de passe doit contenir 8 caractere minimun',
-                ]
-            ],
-            'pass_confirm' => [
-                'rules' =>'required_with[password]|matches[password]',
-                'errors' => [
-                    'required_with' =>'le mot de passe doit etre remplis avant ',
-                    'matches' =>'le confirmation doit corespondre au mot de passe',
                 ]
             ],
             'lastname' => [
