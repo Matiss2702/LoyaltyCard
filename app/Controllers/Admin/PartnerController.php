@@ -4,6 +4,10 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\I18n\Time;
+use App\Models\CompanyModel;
+use App\Models\GroupModel;
+
 class PartnerController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\PartnerModel';
@@ -16,13 +20,13 @@ class PartnerController extends ResourcePresenter
     public function index()
     {
         $session = \Config\Services::session();
-        $GroupModel = new GroupModel();
-        $PartnerModel = new PartnerModel();
+        $groupModel = new GroupModel();
+        $companyModel = new CompanyModel();
         $data = [
             'title' => 'partenaire',
-            'products' => $this->model->findAll(),
-            'group_id' => $productTypeModel->findAll(),
-            'company_id' => $productTypeModel->findAll(),
+            'partner' => $this->model->findAll(),
+            'group_id' => $groupModel->findAll(),
+            'company_id' => $companyModel->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];
         return view('admin/partner', $data);

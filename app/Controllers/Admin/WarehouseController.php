@@ -4,6 +4,9 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\I18n\Time;
+use App\Models\CompanyModel;
+
 class WarehouseController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\WarehouseModel';
@@ -15,9 +18,11 @@ class WarehouseController extends ResourcePresenter
      */
     public function index()
     {
+        $companyModel = new CompanyModel();
         $session = \Config\Services::session();
         $data = [
             'title' => 'entrepot',
+            'company_id' => $companyModel->findAll(),
             'warehouses' => $this->model->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];

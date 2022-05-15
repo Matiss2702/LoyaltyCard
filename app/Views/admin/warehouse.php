@@ -118,7 +118,7 @@
         <!-- Modal body -->
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-id" class="form-label d-none">id</label>
-            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $warehouse['id'] ?>">
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id">
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <label for="modify-name" class="form-label">name</label>

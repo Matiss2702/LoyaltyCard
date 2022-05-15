@@ -99,7 +99,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Entrepots
                         </a>
-                        <a class="nav-link" href="/admin/stocks">
+                        <a class="nav-link" href="/admin/stock">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Stocks
                         </a>

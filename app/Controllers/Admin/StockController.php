@@ -4,6 +4,10 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\I18n\Time;
+use App\Models\ProductModel;
+use App\Models\WarehouseModel;
+
 class StockController extends ResourcePresenter
 {
     protected $modelName = 'App\Models\StockModel';
@@ -15,10 +19,14 @@ class StockController extends ResourcePresenter
      */
     public function index()
     {
+        $productModel = new ProductModel();
+        $warehouseModel = new WarehouseModel();
         $session = \Config\Services::session();
         $data = [
             'title' => 'Stockage',
-            'products_id' => $this->model->findAll(),
+            'stock' => $this->model->findAll(),
+            'products_id' => $productModel->findAll(),
+            'warehouses_id' => $warehouseModel->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];
         return view('admin/stock', $data);
@@ -34,7 +42,7 @@ class StockController extends ResourcePresenter
     public function show($id = null)
     {
         $session = \Config\Services::session();
-        $productTypeModel = new ProductTypeModel();
+        $productModel = new ProductModel();
         $data = [
             'title'=> 'Stockage',
             'stock' => $this->model->find($id),

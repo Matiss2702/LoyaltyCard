@@ -4,6 +4,9 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\I18n\Time;
+use App\Models\ProductModel;
+use App\Models\OderModel;
 
 class OrderProductController extends ResourcePresenter
 {
@@ -15,13 +18,16 @@ class OrderProductController extends ResourcePresenter
      * @return mixed
      */
     public function index()
-    {
+    {   
+        $orderModel = new OrderModel();
+        $productModel = new ProductModel();
         $session = \Config\Services::session();
-        $productTypeModel = new ProductTypeModel();
+    
         $data = [
             'title' => 'commande',
             'order_product' => $this->model->findAll(),
-            'user' => $productTypeModel->findAll(),
+            'products_id' => $productModel->findAll(),
+            'orders_id' => $orderModel->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];
         return view('admin/orderproduct', $data);
@@ -37,11 +43,13 @@ class OrderProductController extends ResourcePresenter
     public function show($id = null)
     {
         $session = \Config\Services::session();
-        $productTypeModel = new ProductTypeModel();
+        $orderModel = new OrderModel();
+        $productModel = new ProductModel();
         $data = [
             'title'=> 'Commande_Produit',
             'order' => $this->model->find($id),
-            'user_id' => $productTypeModel->find($this->model->find($id)['user_id']),
+            'orders_id' => $orderModel->find($this->model->find($id)['orders_id']),
+            'products_id' => $productModel->find($this->model->find($id)['products_id']),
             'is_login' => $session->get('isLoggedIn'),
         ];
 

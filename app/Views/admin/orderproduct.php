@@ -8,32 +8,33 @@
   <table id="product-table">
     <thead>
       <tr>
-        <th></th>
-        <th>name</th>
-        <th>price</th>
-        <th>reduction</th>
-        <th>type</th>
-        <th>status</th>
-        <th></th>
+        <th>id</th>
+        <th>orders_id</th>
+        <th>products_id</th>
+        <th>quantity</th>
+        <th>sub_total</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($products as $product) : ?>
+      <?php foreach ($order_product as $order) : ?>
         <tr>
-          <td><?= $product['id'] ?></td>
-          <td><?= $product['name'] ?></td>
-          <td><?= $product['price'] ?></td>
-          <td><?= $product['reduction'] ?></td>
-          <?php foreach ($productTypes as $type) : ?>
-            <?php if ($type['id'] == $product['product_types_id']) : ?>
-              <td><?= $type['name'] ?></td>
-            <?php endif; ?>
+          <td><?= $order['id'] ?></td>
+          <?php foreach ($order as $orders) : ?>
+            <?php if ($orders['id'] == $order['orders_id']) : ?>
+              <td><?= $order['id'] ?></td>
+              <?php endif; ?>
           <?php endforeach; ?>
-          <td><?= $product['status'] ?></td>
-          <td><button type="button" class="btn btn-outline-success" onclick="modify_product('<?= $product['id'] ?>', '<?= $product['image'] ?>', '<?= $product['name'] ?>',
-          '<?= $product['price'] ?>', '<?= $product['product_types_id'] ?>', '<?= $product['reduction'] ?>', '<?= $product['description'] ?>', '<?= $product['status'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
-          <td><button type="button" class="btn btn-outline-success" onclick="delete_modal('<?= $product['id'] ?>')" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fa-solid fa-trash-can"></i></button></td>
+          <?php foreach ($products_id as $product) : ?>
+              <?php if ($product['id'] == $order['products_id']) : ?>
+              <td><?= $product['name'] ?></td>
+              <?php endif; ?>
+          <?php endforeach; ?>
+          <td><?= $order['quantity'] ?></td>
+          <td><?= $order['sub_total'] ?></td>
+          <td><button type="button" class="btn btn-outline-success" onclick="modify_order_product('<?= $order['id'] ?>', '<?= $order['orders_id'] ?>', '<?= $order['products_id'] ?>',
+          '<?= $order['quantity'] ?>','<?= $order['sub_total'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
+          <td><button type="button" class="btn btn-outline-success" onclick="delete_modal('<?= $order['id'] ?>')" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fa-solid fa-trash-can"></i></button></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
@@ -51,48 +52,41 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add Product</h4>
+          <h4 class="modal-title">Add commande produit</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
           <div class="mb-3 d-grid text-center form-group">
-            <img src="<?= base_url('images/default.png') ?>" alt="product" class="img-fluid" id="add-img" onclick="img_data('add')" data-bs-toggle="modal" data-bs-target="#image-modal">
-            <span>Cliquez pour modifier l'image</span>
-            <input type="hidden" id="add-hidden-img">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="add-name" class="form-label">name</label>
-            <input class="form-control" type="text" id="add-name" name="add-name" placeholder="nom">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
             <label for="add-price" class="form-label">price</label>
             <input class="form-control" type="float" id="add-price" name="add-price" placeholder="prix">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-product-type" class="form-label">product_types_id</label>
-            <select class="form-select" id="add-product-type" name="add-product-type">
-              <?php foreach ($productTypes as $type) : ?>
-                <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+            <label for="add-orders_id" class="form-label">orders_id</label>
+            <select class="form-select" id="add-orders_id" name="add-orders_id">
+              <?php foreach ($orders_id as $order_id) : ?>
+                <option value="<?= $order_id['id'] ?>"><?= $order_id['id'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-reduction" class="form-label">reduction</label>
-            <input class="form-control" type="float" id="add-reduction" name="add-reduction" placeholder="reduction">
+            <label for="add-products_id" class="form-label">products_id</label>
+            <select class="form-select" id="add-products_id" name="add-products_id">
+              <?php foreach ($products_id as $product_id) : ?>
+                <option value="<?= $product_id['id'] ?>"><?= $product_id['name'] ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-description" class="form-label">description</label>
-            <input class="form-control" type="text" id="add-description" name="add-description" placeholder="description">
+            <label for="add-quantity" class="form-label">quantity</label>
+            <input class="form-control" type="float" id="add-quantity" name="add-quantity" placeholder="quantity">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="add-check-status">
-              <label class="form-check-label" for="add-check-status">status</label>
-            </div>
+            <label for="add-sub_total" class="form-label">sub_total</label>
+            <input class="form-control" type="text" id="add-sub_total" name="add-sub_total" placeholder="sub_total">
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="add_product('<?php echo csrf_hash() ?>')">Se Connecter</button>
+         <button class="btn btn-primary d-flex mx-auto" onclick="add_order_product('<?php echo csrf_hash() ?>')">Se Connecter</button>
         </div>
 
         <!-- Modal footer -->
@@ -114,42 +108,35 @@
 
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="mb-3 d-grid text-center form-group">
-            <img src="<?= base_url('images/default.png') ?>" alt="product" class="img-fluid" id="modify-img" onclick="img_data('update')" data-bs-toggle="modal" data-bs-target="#image-modal">
-            <span>Cliquez pour modifier l'image</span>
-            <input type="hidden" id="modify-hidden-img">
+        <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $order['id'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-name" class="form-label">name</label>
-            <input class="form-control" type="text" id="modify-name" name="modify-name" placeholder="nom" value="<?= $product['id'] ?>">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-price" class="form-label">price</label>
-            <input class="form-control" type="float" id="modify-price" name="modify-price" placeholder="prix">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-product-type" class="form-label">product_types_id</label>
-            <select class="form-select" id="modify-product-type" name="modify-product-type">
-              <?php foreach ($productTypes as $type) : ?>
-                <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+            <label for="modify-orders_id" class="form-label">orders_id</label>
+            <select class="form-select" id="modify-orders_id" name="modify-orders_id">
+              <?php foreach ($orders_id as $order_id) : ?>
+                <option value="<?= $order_id['id'] ?>"><?= $order_id['name'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-reduction" class="form-label">reduction</label>
-            <input class="form-control" type="float" id="modify-reduction" name="modify-reduction" placeholder="reduction">
+            <label for="modify-products_id" class="form-label">products_id</label>
+            <select class="form-select" id="modify-products_id" name="modify-products_id">
+              <?php foreach ($products_id as $product_id) : ?>
+                <option value="<?= $product_id['id'] ?>"><?= $product_id['id'] ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-description" class="form-label">description</label>
-            <input class="form-control" type="text" id="modify-description" name="modify-description" placeholder="description">
+            <label for="modify-quantity" class="form-label">quantity</label>
+            <input class="form-control" type="text" id="modify-quantity" name="modify-quantity" placeholder="quantity">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="modify-check-status">
-              <label class="form-check-label" for="modify-check-status">status</label>
-            </div>
+            <label for="modify-sub_total" class="form-label">sub_total</label>
+            <input class="form-control" type="float" id="modify-sub_total" name="modify-sub_total" placeholder="sub_total">
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="modify_product($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">Se Connecter</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="modify_order_product($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">Se Connecter</button>
         </div>
 
         <!-- Modal footer -->
@@ -172,9 +159,9 @@
         <!-- Modal body -->
         <div class="modal-body">
           <div class="mb-3 d-grid text-center form-group">
-            êtes vous sûr de vouloir supprimer ce produit ?
+            êtes vous sûr de vouloir supprimer cette commande de produit ?
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="delete_product($('#delete-modal').data('id'),'<?php echo csrf_hash() ?>')">delete</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="delete_order_product($('#delete-modal').data('id'),'<?php echo csrf_hash() ?>')">delete</button>
           <button class="btn btn-danger d-flex mx-auto" data-bs-dismiss="modal">cancel</button>
         </div>
 
@@ -184,35 +171,5 @@
       </div>
     </div>
   </div>
-
-  <div class="modal" id="image-modal" data-status="">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Changer l'image du produit</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form id="upload-file" method="post" enctype="multipart/form-data">
-            <div class="mb-3 d-grid text-center form-group">
-              <img src="<?= base_url('images/default.png') ?>" id="preview">
-              <input class="form-control" type="file" id="file-name" name="file" placeholder="">
-            </div>
-          </form>
-          <button class="btn btn-primary d-flex mx-auto" onclick="add_image('<?php echo csrf_hash() ?>')">Ajouter l'Image</button>
-          <button class="btn btn-danger d-flex mx-auto" data-bs-dismiss="modal">cancel</button>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-
 </div>
 <?= $this->endSection() ?>

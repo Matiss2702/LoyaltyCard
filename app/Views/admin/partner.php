@@ -1,44 +1,51 @@
 <?= $this->extend('layouts/admin') ?>
 
 <?= $this->section('content') ?>
-<h1 class="mt-4">Produit</h1>
+<h1 class="mt-4">Partner</h1>
 <ol class="breadcrumb mb-4">
  <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
- <li class="breadcrumb-item active">Produit</li>
+ <li class="breadcrumb-item active">Partner</li>
 </ol>
 <div class="row pt-5">
   <div class="pb-2 row">
     <a type="button" data-bs-toggle="modal" data-bs-target="#add-modal" class="btn btnadd position-absolute end-50 btn-outline-success"><i class="fa-solid fa-plus"></i></a>
   </div>
-  <table id="product-table">
+  <table id="utilisateur-table">
     <thead>
       <tr>
-        <th></th>
-        <th>name</th>
-        <th>price</th>
-        <th>reduction</th>
-        <th>type</th>
+        <th>id</th>
+        <th>lastname</th>
+        <th>firstname</th>
+        <th>password</th>
+        <th>mail</th>
+        <th>group_id</th>
+        <th>company_id</th>
         <th>status</th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($products as $product) : ?>
+      <?php foreach ($partner as $partners) : ?>
         <tr>
-          <td><?= $product['id'] ?></td>
-          <td><?= $product['name'] ?></td>
-          <td><?= $product['price'] ?></td>
-          <td><?= $product['reduction'] ?></td>
-          <?php foreach ($productTypes as $type) : ?>
-            <?php if ($type['id'] == $product['product_types_id']) : ?>
-              <td><?= $type['name'] ?></td>
+          <td><?= $partners['id'] ?></td>
+          <td><?= $partners['lastname'] ?></td>
+          <td><?= $partners['firstname'] ?></td>
+          <td><?= $partners['password'] ?></td>
+          <td><?= $partners['mail'] ?></td>d>
+          <?php foreach ($group_id as $role) : ?>
+            <?php if ($role['id'] == $partners['group_id']) : ?>
+              <td><?= $role['name'] ?></td>
             <?php endif; ?>
           <?php endforeach; ?>
-          <td><?= $product['status'] ?></td>
-          <td><button type="button" class="btn btn-outline-success" onclick="modify_product('<?= $product['id'] ?>', '<?= $product['image'] ?>', '<?= $product['name'] ?>',
-          '<?= $product['price'] ?>', '<?= $product['product_types_id'] ?>', '<?= $product['reduction'] ?>', '<?= $product['description'] ?>', '<?= $product['status'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
-          <td><button type="button" class="btn btn-outline-success" onclick="delete_modal('<?= $product['id'] ?>')" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fa-solid fa-trash-can"></i></button></td>
+          <?php foreach ($company_id as $company) : ?>
+            <?php if ($company['id'] == $partners['company_id']) : ?>
+              <td><?= $company['company_name'] ?></td>
+            <?php endif; ?>
+          <?php endforeach; ?>
+          <td><?= $partners['status'] ?></td>
+          <td><button type="button" class="btn btn-outline-success" onclick="modify_partner('<?= $partners['id'] ?>', '<?= $partners['lastname'] ?>', '<?= $partners['firstname'] ?>', '<?= $partners['password'] ?>',
+          '<?= $partners['mail'] ?>', '<?= $partners['group_id'] ?>', '<?= $partners['company_id'] ?>',
+          '<?= $partners['status'] ?>')" data-bs-toggle="modal" data-bs-target="#modify-modal"><i class="fa-solid fa-pen"></i></button></td>
+          <td><button type="button" class="btn btn-outline-success" onclick="delete_modal('<?= $partners['id'] ?>')" data-bs-toggle="modal" data-bs-target="#delete-modal"><i class="fa-solid fa-trash-can"></i></button></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
@@ -56,47 +63,45 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add Product</h4>
+          <h4 class="modal-title">Add partner</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-        <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-id" class="form-label d-none">id</label>
-            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" placeholder="id" value="<?= $product['id'] ?>">
+          <div class="mb-3 d-grid text-center form-group">
+            <label for="add-fistname" class="form-label">firstname</label>
+            <input class="form-control" type="text" id="add-firstname" name="add-fristname" placeholder="prenom">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-name" class="form-label">name</label>
-            <input class="form-control" type="text" id="add-name" name="add-name" placeholder="nom">
+            <label for="add-lastname" class="form-label">lastname</label>
+            <input class="form-control" type="text" id="add-lastname" name="add-lastname" placeholder="nom">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-price" class="form-label">price</label>
-            <input class="form-control" type="float" id="add-price" name="add-price" placeholder="prix">
+            <label for="add-password" class="form-label">password</label>
+            <input class="form-control" type="password" id="add-password" name="add-password" placeholder="password">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="add-product-type" class="form-label">product_types_id</label>
-            <select class="form-select" id="add-product-type" name="add-product-type">
-              <?php foreach ($productTypes as $type) : ?>
-                <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+            <label for="add-mail" class="form-label">mail</label>
+            <input class="form-control" type="float" id="add-mail" name="add-mail" placeholder="mail">
+          </div>
+          <select class="form-select" id="add-group_id" name="add-group_id">
+              <?php foreach ($group_id as $role) : ?>
+                <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
               <?php endforeach; ?>
             </select>
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="add-reduction" class="form-label">reduction</label>
-            <input class="form-control" type="float" id="add-reduction" name="add-reduction" placeholder="reduction">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="add-description" class="form-label">description</label>
-            <input class="form-control" type="text" id="add-description" name="add-description" placeholder="description">
-          </div>
+            <select class="form-select" id="add-group_id" name="add-group_id">
+              <?php foreach ($company_id as $company) : ?>
+                <option value="<?= $company['id'] ?>"><?= $company['company_name'] ?></option>
+              <?php endforeach; ?>
+            </select>
           <div class="mb-3 d-grid text-center form-group">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="add-check-status">
               <label class="form-check-label" for="add-check-status">status</label>
             </div>
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="add_product('<?php echo csrf_hash() ?>')">Se Connecter</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="add_partner('<?php echo csrf_hash() ?>')">ajouter</button>
         </div>
 
         <!-- Modal footer -->
@@ -112,40 +117,47 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modifier Product</h4>
+          <h4 class="modal-title">Modifier partner</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-          <div class="mb-3 d-grid text-center form-group">
-            <img src="<?= base_url('images/default.png') ?>" alt="product" class="img-fluid" id="modify-img" onclick="img_data('update')" data-bs-toggle="modal" data-bs-target="#image-modal">
-            <span>Cliquez pour modifier l'image</span>
-            <input type="hidden" id="modify-hidden-img">
+        <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-id" class="form-label d-none">id</label>
+            <input class="form-control d-none" type="text" id="modify-id" name="modify-id" value="id" value="<?= $partners['id'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-name" class="form-label">name</label>
-            <input class="form-control" type="text" id="modify-name" name="modify-name" placeholder="nom" value="<?= $product['id'] ?>">
+            <label for="modify-firstname" class="form-label">firstname</label>
+            <input class="form-control" type="text" id="modify-firstname" name="modify-firstname" value="<?= $partners['firstname'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-price" class="form-label">price</label>
-            <input class="form-control" type="float" id="modify-price" name="modify-price" placeholder="prix">
+            <label for="modify-lastname" class="form-label">lastname</label>
+            <input class="form-control" type="float" id="modify-lastname" name="modify-lastname" value="<?= $partners['lastname'] ?>">
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-product-type" class="form-label">product_types_id</label>
-            <select class="form-select" id="modify-product-type" name="modify-product-type">
-              <?php foreach ($productTypes as $type) : ?>
-                <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+            <label for="modify-password" class="form-label">password</label>
+            <input class="form-control" type="password" id="modify-password" name="modify-password" value="<?= $partners['password'] ?>">
+          </div>
+          <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-mail" class="form-label">mail</label>
+            <input class="form-control" type="float" id="modify-mail" name="modify-mail" value="<?= $partners['mail'] ?>">
+          </div>
+          <div class="mb-3 d-grid text-center form-group">
+            <label for="modify-group_id" class="form-label">group</label>
+            <select class="form-select" id="modify-group_id" name="modify-group_id">
+              <?php foreach ($group_id as $role) : ?>
+                <option value="<?= $role['id'] ?>"><?= $role['name'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-reduction" class="form-label">reduction</label>
-            <input class="form-control" type="float" id="modify-reduction" name="modify-reduction" placeholder="reduction">
-          </div>
-          <div class="mb-3 d-grid text-center form-group">
-            <label for="modify-description" class="form-label">description</label>
-            <input class="form-control" type="text" id="modify-description" name="modify-description" placeholder="description">
+            <label for="modify-company_id" class="form-label">company_id</label>
+            <select class="form-select" id="modify-company_id" name="modify-company_id">
+              <?php foreach ($company_id as $company) : ?>
+                <option value="<?= $company['id'] ?>"><?= $company['company_name'] ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
           <div class="mb-3 d-grid text-center form-group">
             <div class="form-check form-switch">
@@ -153,7 +165,7 @@
               <label class="form-check-label" for="modify-check-status">status</label>
             </div>
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="modify_product($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">Se Connecter</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="modify_partner($('#modify-modal').data('id'),'<?php echo csrf_hash() ?>')">modifié</button>
         </div>
 
         <!-- Modal footer -->
@@ -169,45 +181,16 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">delete Product</h4>
+          <h4 class="modal-title">delete partner</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
           <div class="mb-3 d-grid text-center form-group">
-            êtes vous sûr de vouloir supprimer ce produit ?
+            êtes vous sûr de vouloir supprimer ce partenaire ?
           </div>
-          <button class="btn btn-primary d-flex mx-auto" onclick="delete_product($('#delete-modal').data('id'),'<?php echo csrf_hash() ?>')">delete</button>
-          <button class="btn btn-danger d-flex mx-auto" data-bs-dismiss="modal">cancel</button>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="image-modal" data-status="">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Changer l'image du produit</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form id="upload-file" method="post" enctype="multipart/form-data">
-            <div class="mb-3 d-grid text-center form-group">
-              <img src="<?= base_url('images/default.png') ?>" id="preview">
-              <input class="form-control" type="file" id="file-name" name="file" placeholder="">
-            </div>
-          </form>
-          <button class="btn btn-primary d-flex mx-auto" onclick="add_image('<?php echo csrf_hash() ?>')">Ajouter l'Image</button>
+          <button class="btn btn-primary d-flex mx-auto" onclick="delete_partner($('#delete-modal').data('id'),'<?php echo csrf_hash() ?>')">delete</button>
           <button class="btn btn-danger d-flex mx-auto" data-bs-dismiss="modal">cancel</button>
         </div>
 

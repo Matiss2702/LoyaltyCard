@@ -4,6 +4,8 @@ namespace App\Controllers\Admin;
 
 use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\I18n\Time;
+use App\Models\UserModel;
 
 class OrderController extends ResourcePresenter
 {
@@ -17,11 +19,12 @@ class OrderController extends ResourcePresenter
      */
     public function index()
     {
+        $userModel = new UserModel();
         $session = \Config\Services::session();
         $data = [
             'title' => 'commande',
-            'order' => $this->model->findAll(),
-            'user_id' => $userModel->findAll(),
+            'orders' => $this->model->findAll(),
+            'users_id' => $userModel->findAll(),
             'is_login' => $session->get('isLoggedIn'),
         ];
         return view('admin/order', $data);
