@@ -32,8 +32,13 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'HomeController::index');
+$routes->get('/webgl', 'HomeController::webgl');
 $routes->get('/faq', 'HomeController::faq');
 $routes->post('/contact', 'HomeController::contact');
+$routes->post('/cart', 'CartController::index');
+$routes->post('/checkout', 'CartController::checkout');
+$routes->post('/remove_cart', 'CartController::remove');
+$routes->post('/update_cart', 'CartController::update');
 $routes->post('/add_image', 'UploadController::add_image');
 $routes->post('/login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
@@ -46,6 +51,7 @@ $routes->get('/profile', 'ProfileController::profile');
 $routes->post('/update','ProfileController::update');
 $routes->get('/product', 'ProductController::index');
 $routes->get('/product/(:num)','ProductController::product/$1');
+$routes->post('/add_cart/(:num)','ProductController::add_cart/$1');
 //Routes Api
 $routes->group('api', function ($routes) {
     $routes->post('login', 'Api\LoginController::index');

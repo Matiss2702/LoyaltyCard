@@ -27,6 +27,17 @@ class HomeController extends BaseController
         return view('home', $data);
     }
 
+    public function webgl()
+    {
+        $session = \Config\Services::session();
+        $data = [
+            'title'=> 'WebGL',
+            'is_login' => $session->get('isLoggedIn'),
+        ];
+
+        return view('webgl', $data);
+    }
+
     public function faq()
     {
         $session = \Config\Services::session();

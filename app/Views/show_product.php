@@ -40,10 +40,7 @@
                     </div>
                     <div class="row pb-3">
                         <div class="col d-grid">
-                            <button type="submit" class="btn btn-success btn-lg" name="submit" >Buy</button>
-                        </div>
-                        <div class="col d-grid">
-                            <button type="submit" class="btn btn-success btn-lg" name="submit">Add To Cart</button>
+                            <button type="submit" class="btn btn-success btn-lg" name="submit" onclick="add_to_cart('<?= $product['id']?>','<?php echo csrf_hash() ?>')">Add To Cart</button>
                         </div>
                     </div>
             </div>

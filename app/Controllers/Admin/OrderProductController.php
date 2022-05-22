@@ -6,7 +6,7 @@ use CodeIgniter\RESTful\ResourcePresenter;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\I18n\Time;
 use App\Models\ProductModel;
-use App\Models\OderModel;
+use App\Models\OrderModel;
 
 class OrderProductController extends ResourcePresenter
 {

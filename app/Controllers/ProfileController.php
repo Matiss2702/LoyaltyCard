@@ -74,7 +74,6 @@ class ProfileController extends BaseController {
                 'numeric'=>'il doit contenir que des chiffres',
               ]
             ],
-            //a finir
           ];
           $password = $this->request->getPost('password');
           if(isset($password)){

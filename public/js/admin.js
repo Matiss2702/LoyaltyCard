@@ -147,6 +147,7 @@ function delete_product(id,csrf_token){
         }
     })
 }
+
 function add_user(csrf_token) {
   lastname = $('#add-lastname').val()
   firstname = $('#add-firstname').val()

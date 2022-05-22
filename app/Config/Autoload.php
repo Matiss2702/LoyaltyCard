@@ -57,7 +57,7 @@ class Autoload extends AutoloadConfig
      *
      * Prototype:
      *```
-     *   $classmap = [
+     *   classmap = [
      *       'MyClass'   => '/path/to/class/file.php'
      *   ];
      *```
@@ -66,6 +66,7 @@ class Autoload extends AutoloadConfig
      */
     public $classmap = [];
 
+    
     /**
      * -------------------------------------------------------------------
      * Files
